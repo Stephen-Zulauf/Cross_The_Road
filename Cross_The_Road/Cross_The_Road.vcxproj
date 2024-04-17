@@ -136,9 +136,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bridge.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Land.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Water.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="rowMaps.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

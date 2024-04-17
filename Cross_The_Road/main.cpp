@@ -3,6 +3,9 @@
 
 int main()
 {
+    //seed random number gen
+    srand(time(NULL));
+
     //globals for window size
     float w_width = 800;
     float w_height = 600;

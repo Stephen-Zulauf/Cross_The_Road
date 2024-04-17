@@ -1,7 +1,10 @@
 #pragma once
 
 #include "config.h"
-#include "Tile.h"
+#include "Land.h"
+#include "Water.h"
+#include "Player.h"
+#include "Bridge.h"
 
 class Grid {
 private:
@@ -32,15 +35,27 @@ public:
 		//y
 		float t_height = w_height / rows;
 
-		//intialize grid with empty tiles
+		//intialize grid with starting tiles
 		for (int i = 0; i < rows; i++) {
-			Tiles.push_back(std::vector<Tile*>());
+			
+			if (i > 0 && i != rows - 1) {
+				//select random row type
+				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (5 - 0 + 1));
 
-			for (int j = 0; j < columns; j++) {
-				Tile* temp = new Tile( t_width * j, t_height * i, t_width, t_height);
+				//create a water row
+				if (type < 3) {
+					Tiles.push_back(genWaterRow(t_width, t_height, i));
+				}
+				//create a land row
+				else {
+					Tiles.push_back(genLandRow(t_width, t_height, i));
+				}
 
-				Tiles[i].push_back(temp);
 			}
+			else {
+				Tiles.push_back(genLandRow(t_width, t_height, i));
+			}
+			
 		}
 	}
 	~Grid() {
@@ -52,6 +67,42 @@ public:
 			}
 
 		}
+	}
+
+	//generate randomized land row
+	std::vector<Tile*> genLandRow(float t_width, float t_height, int i) {
+
+		std::vector<Tile*> tempTiles;
+
+		for (int j = 0; j < columns; j++) {
+			Tile* temp = new Land(t_width * j, t_height * i, t_width, t_height);
+
+			tempTiles.push_back(temp);
+		}
+
+		return tempTiles;
+	}
+
+	//generate randomized water row
+	std::vector<Tile*> genWaterRow(float t_width, float t_height, int i) {
+
+		std::vector<Tile*> tempTiles;
+
+		int bridge = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (columns - 0 + 1));
+
+		for (int j = 0; j < columns; j++) {
+			if (j == bridge) {
+				Tile* temp = new Bridge(t_width * j, t_height * i, t_width, t_height);
+				tempTiles.push_back(temp);
+			}
+			else {
+				Tile* temp = new Water(t_width * j, t_height * i, t_width, t_height);
+				tempTiles.push_back(temp);
+			}
+
+		}
+
+		return tempTiles;
 	}
 
 	void drawGrid() {

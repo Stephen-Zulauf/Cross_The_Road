@@ -3,7 +3,7 @@
 #include "config.h"
 
 class Tile {
-private:
+protected:
 	//this containes postion.x postion.y and .color
 	sf::RectangleShape Data;
 
@@ -16,9 +16,10 @@ public:
 	}
 
 	//draw to window
-	void draw(sf::RenderWindow* nWindow) {
+	/*void draw(sf::RenderWindow* nWindow) {
 		nWindow->draw(Data);
-	}
+	}*/
+	virtual void draw(sf::RenderWindow* nWindow) = 0;
 
 	//setters
 	void setPosition(float x, float y) {

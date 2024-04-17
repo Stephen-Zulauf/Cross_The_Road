@@ -1,0 +1,6 @@
+This file will hold templates for rows
+We can randomly generate one of these for each row
+L=land tile; W=water tile; B=bridge tile;
+
+LLWW
+
