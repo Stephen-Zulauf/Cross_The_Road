@@ -13,7 +13,7 @@ private:
 	//rows and columns in grid.
 	int rows = 0;
 	int columns = 0;
-	Player* play = nullptr;
+	Player* player;
 	//vector to contain all the tiles
 	std::vector<std::vector<Tile*>> Tiles;
 
@@ -25,12 +25,13 @@ private:
 	
 
 public:
-	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) {
-
+	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) 
+	{
+		player = nullptr;
 		//testing tilemaps
 		TileSet tm_Grass(176, 112, 7, 11, "Grass.png");
 		addTileMap(tm_Grass);
-		TileSet player();
+		
 		
 		TileSet tm_Water(64, 16, 1, 4, "Water.png");
 		addTileMap(tm_Water);
@@ -47,7 +48,7 @@ public:
 		float t_width = w_width / columns;
 		//y
 		float t_height = w_height / rows;
-
+		
 		//intialize grid with starting tiles
 		for (int i = 0; i < rows; i++) {
 			
@@ -73,6 +74,35 @@ public:
 		
 
 	}
+	void setplayer(Player n)
+	{
+		this->player = &n;
+	}
+	void moveplayer(int nRows, int nColumns)
+	{
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			nRows++;
+			this->player->setPosition(nColumns, nRows);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			nColumns--;
+			this->player->setPosition(nColumns, nRows);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			nRows--;
+			this->player->setPosition(nColumns, nRows);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			nColumns++;
+			this->player->setPosition(nColumns, nRows);
+		}
+	}
+
 	~Grid() {
 		for (int i = 0; i < Tiles.size(); i++)
 		{

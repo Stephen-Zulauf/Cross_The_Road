@@ -16,13 +16,16 @@ int main()
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
     Grid mGrid(10, 15, w_width, w_height, &w_Main);
-
+    Player p = { 10, 15, w_width, w_height };
+    mGrid.setplayer(p);
     //main event loop
     while (w_Main.isOpen())
     {
         
-        sf::Event event.key;
+        sf::Event event;
         event.key.code;
+
+        mGrid.moveplayer(w_width, w_height);
         while (w_Main.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
