@@ -13,7 +13,7 @@ private:
 	//rows and columns in grid.
 	int rows = 0;
 	int columns = 0;
-
+	Player* play = nullptr;
 	//vector to contain all the tiles
 	std::vector<std::vector<Tile*>> Tiles;
 
@@ -30,7 +30,8 @@ public:
 		//testing tilemaps
 		TileSet tm_Grass(176, 112, 7, 11, "Grass.png");
 		addTileMap(tm_Grass);
-
+		TileSet player();
+		
 		TileSet tm_Water(64, 16, 1, 4, "Water.png");
 		addTileMap(tm_Water);
 

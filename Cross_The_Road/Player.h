@@ -11,7 +11,6 @@ public:
 		//set color to red for testing
 		Data.setFillColor(sf::Color(235, 89, 52, 255));
 	}
-
 	//draw to window
 	void draw(sf::RenderWindow* nWindow) override{
 		nWindow->draw(Data);

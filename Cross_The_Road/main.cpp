@@ -20,7 +20,9 @@ int main()
     //main event loop
     while (w_Main.isOpen())
     {
-        sf::Event event;
+        
+        sf::Event event.key;
+        event.key.code;
         while (w_Main.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
