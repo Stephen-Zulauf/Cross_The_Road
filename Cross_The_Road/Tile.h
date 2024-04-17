@@ -25,6 +25,12 @@ public:
 	void setPosition(float x, float y) {
 		this->Data.setPosition(x, y);
 	}
+	void setTexture(sf::Texture* nTexture) {
+		this->Data.setTexture(nTexture);
+	}
+	void setTexRec(sf::IntRect nRect) {
+		this->Data.setTextureRect(nRect);
+	}
 	
 	//getters
 	sf::Vector2f getPosition() {

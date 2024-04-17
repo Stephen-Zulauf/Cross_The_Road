@@ -5,6 +5,7 @@
 #include "Water.h"
 #include "Player.h"
 #include "Bridge.h"
+#include "TileSet.h"
 
 class Grid {
 private:
@@ -19,8 +20,19 @@ private:
 	//handle to window to draw grid on
 	sf::RenderWindow* window = nullptr;
 
+	//tile sets
+	std::vector<TileSet> tileSets;
+	
+
 public:
 	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) {
+
+		//testing tilemaps
+		TileSet tm_Grass(176, 112, 7, 11, "Grass.png");
+		addTileMap(tm_Grass);
+
+		TileSet tm_Water(64, 16, 1, 4, "Water.png");
+		addTileMap(tm_Water);
 
 		//set window
 		window = nWindow;
@@ -57,6 +69,8 @@ public:
 			}
 			
 		}
+		
+
 	}
 	~Grid() {
 		for (int i = 0; i < Tiles.size(); i++)
@@ -69,6 +83,11 @@ public:
 		}
 	}
 
+	//add tilemaps
+	void addTileMap(TileSet nTileSet) {
+		tileSets.push_back(nTileSet);
+	}
+
 	//generate randomized land row
 	std::vector<Tile*> genLandRow(float t_width, float t_height, int i) {
 
@@ -76,6 +95,8 @@ public:
 
 		for (int j = 0; j < columns; j++) {
 			Tile* temp = new Land(t_width * j, t_height * i, t_width, t_height);
+			temp->setTexture(tileSets[0].getTexture());
+			temp->setTexRec(tileSets[0].getTile(0, 5));
 
 			tempTiles.push_back(temp);
 		}
@@ -97,6 +118,8 @@ public:
 			}
 			else {
 				Tile* temp = new Water(t_width * j, t_height * i, t_width, t_height);
+				temp->setTexture(tileSets[1].getTexture());
+				temp->setTexRec(tileSets[1].getTile(1, 0));
 				tempTiles.push_back(temp);
 			}
 

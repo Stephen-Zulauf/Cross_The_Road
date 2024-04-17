@@ -142,10 +142,15 @@
     <ClInclude Include="Land.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileSet.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="rowMaps.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\Tilesets\Grass.png" />
+    <Image Include="..\Assets\Tilesets\Water.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
