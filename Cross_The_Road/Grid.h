@@ -25,13 +25,13 @@ private:
 	
 
 public:
-	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) 
+	Grid(int nRows, int nColumns, float w_width, float w_height, Player n, sf::RenderWindow* nWindow) 
 	{
 		player = nullptr;
+		player = &n;
 		//testing tilemaps
 		TileSet tm_Grass(176, 112, 7, 11, "Grass.png");
 		addTileMap(tm_Grass);
-		
 		
 		TileSet tm_Water(64, 16, 1, 4, "Water.png");
 		addTileMap(tm_Water);
