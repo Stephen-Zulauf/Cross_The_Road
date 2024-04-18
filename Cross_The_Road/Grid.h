@@ -19,7 +19,7 @@ private:
 
 	//keep track of player location
 	sf::Vector2f playerLocation;
-  Player* player = nullptr;;
+	Player* player = nullptr;
 
 	//vector of rows
 	std::vector<Row*> Tiles;
@@ -106,15 +106,13 @@ public:
 		}
 	}
 
-};
-
-void setplayer(Player n)
+	void setplayer(Player n)
 	{
 		this->player = &n;
 	}
 	void moveplayer(int nRows, int nColumns)
 	{
-		
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			nRows++;
@@ -136,3 +134,6 @@ void setplayer(Player n)
 			this->player->setPosition(nColumns, nRows);
 		}
 	}
+
+};
+
