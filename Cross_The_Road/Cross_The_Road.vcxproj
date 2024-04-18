@@ -152,6 +152,7 @@
     <Text Include="rowMaps.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Assets\Characters\Basic Charakter Spritesheet.png" />
     <Image Include="..\Assets\Tilesets\Grass.png" />
     <Image Include="..\Assets\Tilesets\Water.png" />
   </ItemGroup>

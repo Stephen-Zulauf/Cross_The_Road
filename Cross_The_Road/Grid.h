@@ -12,13 +12,14 @@ private:
 	//rows and columns in grid.
 	int rows = 0;
 	int columns = 0;
-
+  
 	//width and height of each tile in grid
 	float t_width = 0;
 	float t_height = 0;
 
 	//keep track of player location
 	sf::Vector2f playerLocation;
+  Player* player = nullptr;;
 
 	//vector of rows
 	std::vector<Row*> Tiles;
@@ -28,7 +29,9 @@ private:
 	
 
 public:
-	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) {
+	Grid(int nRows, int nColumns, float w_width, float w_height, Player n, sf::RenderWindow* nWindow) 
+	{
+		player = &n;
 
 		//set window
 		window = nWindow;
@@ -51,6 +54,7 @@ public:
 		initGrid();
 
 	}
+	
 	~Grid() {
 		for (int i = 0; i < Tiles.size(); i++) {
 			delete Tiles[i];
@@ -103,3 +107,32 @@ public:
 	}
 
 };
+
+void setplayer(Player n)
+	{
+		this->player = &n;
+	}
+	void moveplayer(int nRows, int nColumns)
+	{
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			nRows++;
+			this->player->setPosition(nColumns, nRows);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			nColumns--;
+			this->player->setPosition(nColumns, nRows);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			nRows--;
+			this->player->setPosition(nColumns, nRows);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			nColumns++;
+			this->player->setPosition(nColumns, nRows);
+		}
+	}

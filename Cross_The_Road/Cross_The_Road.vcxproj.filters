@@ -69,5 +69,8 @@
     <Image Include="..\Assets\Tilesets\Grass.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\Assets\Characters\Basic Charakter Spritesheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
