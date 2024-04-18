@@ -5,11 +5,9 @@
 
 class Bridge : public Tile {
 private:
-	//can player stand on it?
-	bool walkable = true;
 
 public:
-	Bridge(float x, float y, float w, float h) :Tile(x, y, w, h) {
+	Bridge(float x, float y, float w, float h) :Tile(x, y, w, h, true, false) {
 		//set fill color to brown for testing
 		//Data.setFillColor(sf::Color(99, 53, 18, 255));
 	}

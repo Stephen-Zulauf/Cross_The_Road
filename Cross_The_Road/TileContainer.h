@@ -14,16 +14,28 @@ public:
 			Tiles.clear();
 		}
 	}
+
 	void addTile(Tile* nTile) {
 		Tiles.push_back(nTile);
 	}
+
 	void removeTile() {
 		delete Tiles.back();
 		Tiles.pop_back();
 	}
+
 	std::vector<Tile*> getTiles() {
 		return this->Tiles;
 	}
+
+	bool isWalkable() {
+		return Tiles.back()->isWalkable();
+	}
+
+	bool isDeadly() {
+		return Tiles.back()->isDeadly();
+	}
+
 	void drawTiles(sf::RenderWindow* window) {
 		for (int i = 0; i < Tiles.size(); i++) {
 			Tiles[i]->draw(window);

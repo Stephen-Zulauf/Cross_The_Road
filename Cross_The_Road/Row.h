@@ -68,15 +68,7 @@ public:
 	}
 
 	void update(int playerPos) {
-		if (playerPos > 0) {
-			player = true;
-			for (int i = 0; i < playerPos; i++) {
-				if (Tiles[i]->getTiles().size() > 2) {
-					Tiles[i]->removeTile();
-				}
-			}
-			Tiles[playerPos]->addTile(new Player(t_width * playerPos, t_height * rowNum, t_width, t_height));
-		}
+		
 	}
 
 	//generate tile containers

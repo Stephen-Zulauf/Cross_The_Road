@@ -7,11 +7,19 @@ protected:
 	//this containes postion.x postion.y and .color
 	sf::RectangleShape Data;
 
+	//if the tile is walkable by the player or not
+	bool walkable;
+
+	//will the tile kill the player
+	bool deadly;
+
 public:
 	//constructor
-	Tile(float x, float y, float w, float h) {
+	Tile(float x, float y, float w, float h, bool isWalkable, bool isDeadly) {
 		this->Data.setPosition(x, y);
 		this->Data.setSize(sf::Vector2f(w, h));
+		this->walkable = isWalkable;
+		this->deadly = isDeadly;
 	}
 
 	//draw to window
@@ -34,6 +42,16 @@ public:
 	//getters
 	sf::Vector2f getPosition() {
 		return this->Data.getPosition();
+	}
+
+	//check if walkable
+	bool isWalkable() {
+		return this->walkable;
+	}
+
+	//check if deadly
+	bool isDeadly() {
+		return this->deadly;
 	}
 
 };

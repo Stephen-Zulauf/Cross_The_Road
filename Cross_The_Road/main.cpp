@@ -15,19 +15,39 @@ int main()
 
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
-    Player p = { 10, 15, w_width, w_height };
-    Grid mGrid(10, 15, w_width, w_height,p, &w_Main);
+    Grid mGrid(10, 15, w_width, w_height, &w_Main);
     
     //main event loop
     while (w_Main.isOpen())
     {
         sf::Event event;
-        mGrid.moveplayer(w_width, w_height);
       
         while (w_Main.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            switch (event.type) {
+            case sf::Event::Closed:
                 w_Main.close();
+                break;
+            case sf::Event::KeyPressed:
+                if (event.key.scancode == sf::Keyboard::W) {
+                    //move player up
+                    mGrid.moveplayer(0);
+                }
+                else if (event.key.scancode == sf::Keyboard::A) {
+                    //move player left
+                    mGrid.moveplayer(1);
+                }
+                else if (event.key.scancode == sf::Keyboard::S) {
+                    //move player down
+                    mGrid.moveplayer(2);
+                }
+                else if (event.key.scancode == sf::Keyboard::D) {
+                    //move player right
+                    mGrid.moveplayer(3);
+                }
+                break;
+            }
+           
         }
 
         //clear

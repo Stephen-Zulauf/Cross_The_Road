@@ -5,11 +5,9 @@
 
 class Water : public Tile {
 private:
-	//can player stand on it?
-	bool walkable = false;
 
 public:
-	Water(float x, float y, float w, float h) :Tile(x, y, w, h) {
+	Water(float x, float y, float w, float h) :Tile(x, y, w, h,true,true) {
 		//set fill color to green for testing
 		Data.setFillColor(sf::Color::White);
 	}

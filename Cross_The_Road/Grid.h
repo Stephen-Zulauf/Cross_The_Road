@@ -18,7 +18,6 @@ private:
 	float t_height = 0;
 
 	//keep track of player location
-	sf::Vector2f playerLocation;
 	Player* player = nullptr;
 
 	//vector of rows
@@ -29,10 +28,10 @@ private:
 	
 
 public:
-	Grid(int nRows, int nColumns, float w_width, float w_height, Player n, sf::RenderWindow* nWindow) 
+	//constructor
+	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) 
 	{
-		player = &n;
-
+		
 		//set window
 		window = nWindow;
 
@@ -44,17 +43,17 @@ public:
 		t_width = w_width / columns;
 		t_height = w_height / rows;
 
-		//set starting player location
-		playerLocation.y = 0;
-		playerLocation.x = columns/2;
-
 		//load tile sets
 		atlas = new Atlas;
 
 		initGrid();
 
+		//init player
+		this->player = new Player(0, 0, t_width,t_height, rows-1, floor(columns / 2));
+
 	}
 	
+	//destructor
 	~Grid() {
 		for (int i = 0; i < Tiles.size(); i++) {
 			delete Tiles[i];
@@ -104,35 +103,42 @@ public:
 
 			Tiles[i]->draw(window);
 		}
+
+		player->draw(window);
 	}
 
 	void setplayer(Player n)
 	{
 		this->player = &n;
 	}
-	void moveplayer(int nRows, int nColumns)
-	{
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			nRows++;
-			this->player->setPosition(nColumns, nRows);
+	void moveplayer(int direction)
+	{
+		switch (direction) {
+		case 0:
+			//move player up
+			std::cout << "player move up" << std::endl;
+			player->moveUp();
+			break;
+		case 1:
+			//move player left
+			std::cout << "player move left" << std::endl;
+			player->moveLeft();
+			break;
+		case 2:
+			//move player down
+			std::cout << "player move down" << std::endl;
+			player->moveDown();
+			break;
+		case 3:
+			//move player right
+			std::cout << "player move right" << std::endl;
+			player->moveRight();
+			break;
+		default:
+			break;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			nColumns--;
-			this->player->setPosition(nColumns, nRows);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			nRows--;
-			this->player->setPosition(nColumns, nRows);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			nColumns++;
-			this->player->setPosition(nColumns, nRows);
-		}
+		
 	}
 
 };
