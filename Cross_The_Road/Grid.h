@@ -67,8 +67,9 @@ public:
 		for (int i = 0; i < rows; i++) {
 
 			//check if we are generating top or bottom row
-			//we want the top and bottom row to always be land
-			//so the player can get to the other side
+			//so the top and bottom row will always be land
+			//at the start
+
 			if (i > 0 && i != rows - 1) {
 
 				//select random row type
