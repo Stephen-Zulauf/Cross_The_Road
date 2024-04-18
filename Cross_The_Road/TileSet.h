@@ -18,6 +18,7 @@ private:
 	sf::Texture texture;
 
 public:
+	//width,height,rows,cols,filename
 	TileSet(int nWidth, int nHeight, int nRows, int nCols, std::string nFileName) {
 		this->width = nWidth;
 		this->height = nHeight;

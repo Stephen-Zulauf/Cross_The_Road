@@ -11,7 +11,7 @@ int main()
     float w_height = 600;
 
     //create main window 
-    sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The Road");
+    sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The River");
 
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
@@ -21,11 +21,9 @@ int main()
     //main event loop
     while (w_Main.isOpen())
     {
-        
         sf::Event event;
-       
-
         mGrid.moveplayer(w_width, w_height);
+      
         while (w_Main.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

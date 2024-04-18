@@ -141,7 +141,10 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Land.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Row.h" />
+    <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileContainer.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
