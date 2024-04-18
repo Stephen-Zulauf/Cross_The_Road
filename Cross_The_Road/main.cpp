@@ -11,7 +11,7 @@ int main()
     float w_height = 600;
 
     //create main window 
-    sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The Road");
+    sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The River");
 
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
