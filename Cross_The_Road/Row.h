@@ -49,6 +49,7 @@ public:
 
 		genContainers();
 		genBase();
+		genBridges();
 	}
 	Row(Row& copy) {
 
@@ -138,9 +139,47 @@ public:
 
 	//generate bridges (if water type)
 	void genBridges() {
-		for (int i = 0; i < cols; i++) {
-			Tile* temp = new Land(t_width * i, t_height * rowNum, t_width, t_height);
-			Tiles[i]->addTile(temp);
+		if (type == 0) {
+
+			for (int i = 0; i < cols; i++) {
+				int type = rand() % 5;
+				int chance = rand() % 10;
+
+				if (chance > 7) {
+					std::cout << "creating bridge" << std::endl;
+					Tile* temp = new Bridge(t_width * i, t_height * rowNum, t_width, t_height);
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					switch (type) {
+					case 0:
+						temp->setTexRec(atlas->getTileSet(2)->getTile(8, 4));
+						Tiles[i]->addTile(temp);
+						break;
+					case 1:
+						temp->setTexRec(atlas->getTileSet(2)->getTile(7, 4));
+						Tiles[i]->addTile(temp);
+						break;
+					case 2:
+						temp->setTexRec(atlas->getTileSet(2)->getTile(6, 4));
+						Tiles[i]->addTile(temp);
+						break;
+					case 3:
+						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 4));
+						Tiles[i]->addTile(temp);
+						break;
+					case 4:
+						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+						Tiles[i]->addTile(temp);
+						break;
+					default:
+						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+						Tiles[i]->addTile(temp);
+						break;
+					}
+					
+				}
+				
+			}
 		}
+		
 	}
 };

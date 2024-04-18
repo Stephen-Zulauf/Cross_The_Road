@@ -75,7 +75,7 @@ public:
 				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (5 - 0 + 1));
 
 				//create a 0 row (water)
-				if (type < 3) {
+				if (type < 2) {
 					Tiles.push_back(new Row(columns, 0, t_width, t_height, i, false, atlas));
 				}
 				//create a 1 type row (land)

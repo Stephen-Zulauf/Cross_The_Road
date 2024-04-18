@@ -16,7 +16,7 @@ public:
 		TileSet land(176, 112, 7, 11, "Grass.png");
 		tileSets.push_back(land);
 		//2
-		TileSet bridge(114, 80, 5, 10, "Bridge.png");
+		TileSet bridge(144, 80, 5, 9, "Bridge.png");
 		tileSets.push_back(bridge);
 		//3
 		TileSet player(192, 192, 4, 4, "Character.png");
