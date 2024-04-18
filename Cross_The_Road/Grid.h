@@ -1,39 +1,34 @@
 #pragma once
 
 #include "config.h"
-#include "Land.h"
-#include "Water.h"
-#include "Player.h"
-#include "Bridge.h"
-#include "TileSet.h"
+#include "Row.h"
 
 class Grid {
 private:
 
+	//handle to window created by sfml so we can draw on it
+	sf::RenderWindow* window = nullptr;
+
 	//rows and columns in grid.
 	int rows = 0;
 	int columns = 0;
-	Player* play = nullptr;
-	//vector to contain all the tiles
-	std::vector<std::vector<Tile*>> Tiles;
 
-	//handle to window to draw grid on
-	sf::RenderWindow* window = nullptr;
+	//width and height of each tile in grid
+	float t_width = 0;
+	float t_height = 0;
 
-	//tile sets
-	std::vector<TileSet> tileSets;
+	//keep track of player location
+	sf::Vector2f playerLocation;
+
+	//vector of rows
+	std::vector<Row*> Tiles;
+
+	//add sprite atlas
+	Atlas* atlas = nullptr;
 	
 
 public:
 	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) {
-
-		//testing tilemaps
-		TileSet tm_Grass(176, 112, 7, 11, "Grass.png");
-		addTileMap(tm_Grass);
-		TileSet player();
-		
-		TileSet tm_Water(64, 16, 1, 4, "Water.png");
-		addTileMap(tm_Water);
 
 		//set window
 		window = nWindow;
@@ -43,99 +38,66 @@ public:
 		columns = nColumns;
 
 		//determine width/height of tiles from screen width/height of window
-		//x
-		float t_width = w_width / columns;
-		//y
-		float t_height = w_height / rows;
+		t_width = w_width / columns;
+		t_height = w_height / rows;
 
-		//intialize grid with starting tiles
-		for (int i = 0; i < rows; i++) {
-			
-			if (i > 0 && i != rows - 1) {
-				//select random row type
-				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (5 - 0 + 1));
+		//set starting player location
+		playerLocation.y = 0;
+		playerLocation.x = columns/2;
 
-				//create a water row
-				if (type < 3) {
-					Tiles.push_back(genWaterRow(t_width, t_height, i));
-				}
-				//create a land row
-				else {
-					Tiles.push_back(genLandRow(t_width, t_height, i));
-				}
+		//load tile sets
+		atlas = new Atlas;
 
-			}
-			else {
-				Tiles.push_back(genLandRow(t_width, t_height, i));
-			}
-			
-		}
-		
+		initGrid();
 
 	}
 	~Grid() {
-		for (int i = 0; i < Tiles.size(); i++)
-		{
-			for (int j = 0; j < Tiles[i].size(); j++)
-			{
-				delete Tiles[i][j];
-			}
-
+		for (int i = 0; i < Tiles.size(); i++) {
+			delete Tiles[i];
 		}
+		Tiles.clear();
 	}
 
-	//add tilemaps
-	void addTileMap(TileSet nTileSet) {
-		tileSets.push_back(nTileSet);
-	}
+	//This function resets the grid to its intital state;
+	//it uses random numbers to generate water or land
+	//for each row in the grid
+	void initGrid() {
 
-	//generate randomized land row
-	std::vector<Tile*> genLandRow(float t_width, float t_height, int i) {
+		//for each row
+		for (int i = 0; i < rows; i++) {
 
-		std::vector<Tile*> tempTiles;
+			//check if we are generating top or bottom row
+			//we want the top and bottom row to always be land
+			//so the player can get to the other side
+			if (i > 0 && i != rows - 1) {
 
-		for (int j = 0; j < columns; j++) {
-			Tile* temp = new Land(t_width * j, t_height * i, t_width, t_height);
-			temp->setTexture(tileSets[0].getTexture());
-			temp->setTexRec(tileSets[0].getTile(0, 5));
+				//select random row type
+				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (5 - 0 + 1));
 
-			tempTiles.push_back(temp);
-		}
+				//create a 0 row (water)
+				if (type < 3) {
+					Tiles.push_back(new Row(columns, 0, t_width, t_height, i, false, atlas));
+				}
+				//create a 1 type row (land)
+				else {
+					Tiles.push_back(new Row(columns, 1, t_width, t_height, i, false, atlas));
+				}
 
-		return tempTiles;
-	}
-
-	//generate randomized water row
-	std::vector<Tile*> genWaterRow(float t_width, float t_height, int i) {
-
-		std::vector<Tile*> tempTiles;
-
-		int bridge = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (columns - 0 + 1));
-
-		for (int j = 0; j < columns; j++) {
-			if (j == bridge) {
-				Tile* temp = new Bridge(t_width * j, t_height * i, t_width, t_height);
-				tempTiles.push_back(temp);
 			}
 			else {
-				Tile* temp = new Water(t_width * j, t_height * i, t_width, t_height);
-				temp->setTexture(tileSets[1].getTexture());
-				temp->setTexRec(tileSets[1].getTile(1, 0));
-				tempTiles.push_back(temp);
+				Tiles.push_back(new Row(columns, 1, t_width, t_height, i, false, atlas));
 			}
 
 		}
 
-		return tempTiles;
 	}
 
+	//draw each tile in Tiles vector
 	void drawGrid() {
-		//draw each tile in Tiles vector
 
 		for (int i = 0; i < Tiles.size(); i++) {
-			for (int j = 0; j < Tiles[i].size(); j++) {
-				Tiles[i][j]->draw(window);
-			}
+
+			Tiles[i]->draw(window);
 		}
 	}
 
