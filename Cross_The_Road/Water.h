@@ -11,7 +11,7 @@ private:
 public:
 	Water(float x, float y, float w, float h) :Tile(x, y, w, h) {
 		//set fill color to green for testing
-		Data.setFillColor(sf::Color(52, 186, 235, 255));
+		Data.setFillColor(sf::Color::White);
 	}
 
 	//draw to window

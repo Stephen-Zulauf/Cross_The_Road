@@ -32,20 +32,20 @@ private:
 	bool player = false;
 
 	//pointer to sprite map to use for drawing
-	Atlas* tileSets = nullptr;
+	Atlas* atlas = nullptr;
 
 	//Tile containers
 	std::vector<TileContainer*> Tiles;
 
 public:
-	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, bool nPlayer, Atlas* nTileSets) {
+	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, bool nPlayer, Atlas* nAtlas) {
 		cols = nCols;
 		type = nType;
 		t_width = tWidth;
 		t_height = tHeight;
 		rowNum = nRowNum;
 		player = nPlayer;
-		tileSets = nTileSets;
+		atlas = nAtlas;
 
 		genContainers();
 		genBase();
@@ -87,16 +87,34 @@ public:
 
 	//generate tiles for base tile type
 	void genBase() {
-		if (type == 0) {
-			for (int i = 0; i < cols; i++) {
-				Tile* temp = new Water(t_width * i, t_height * rowNum, t_width, t_height);
-				Tiles[i]->addTile(temp);
-			}
+		
+		//water underneath everything
+		for (int i = 0; i < cols; i++) {
+			Tile* temp = new Water(t_width * i, t_height * rowNum, t_width, t_height);
+			temp->setTexture(atlas->getTileSet(0)->getTexture());
+			temp->setTexRec(atlas->getTileSet(0)->getTile(0, 0));
+			Tiles[i]->addTile(temp);
 		}
-		else {
+
+		if (type == 1) {
 			for (int i = 0; i < cols; i++) {
 				Tile* temp = new Land(t_width * i, t_height * rowNum, t_width, t_height);
-				Tiles[i]->addTile(temp);
+				if (i == 0) {
+					temp->setTexture(atlas->getTileSet(1)->getTexture());
+					temp->setTexRec(atlas->getTileSet(1)->getTile(0, 3));
+					Tiles[i]->addTile(temp);
+				}
+				else if (i == cols - 1) {
+					temp->setTexture(atlas->getTileSet(1)->getTexture());
+					temp->setTexRec(atlas->getTileSet(1)->getTile(2, 3));
+					Tiles[i]->addTile(temp);
+				}
+				else {
+					temp->setTexture(atlas->getTileSet(1)->getTexture());
+					temp->setTexRec(atlas->getTileSet(1)->getTile(1, 3));
+					Tiles[i]->addTile(temp);
+				}
+				
 			}
 		}
 		

@@ -11,7 +11,7 @@ private:
 public:
 	Bridge(float x, float y, float w, float h) :Tile(x, y, w, h) {
 		//set fill color to brown for testing
-		Data.setFillColor(sf::Color(99, 53, 18, 255));
+		//Data.setFillColor(sf::Color(99, 53, 18, 255));
 	}
 
 	//draw to window

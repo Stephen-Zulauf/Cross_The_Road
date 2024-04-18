@@ -12,7 +12,6 @@ public:
 	Tile(float x, float y, float w, float h) {
 		this->Data.setPosition(x, y);
 		this->Data.setSize(sf::Vector2f(w, h));
-		this->Data.setFillColor(sf::Color(x,y,w,255));
 	}
 
 	//draw to window
