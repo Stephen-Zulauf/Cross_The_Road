@@ -34,13 +34,7 @@ public:
 		this->atlas = nAtlas;
 
 		this->setTexture(atlas->getTileSet(3)->getTexture());
-		sf::IntRect temp = atlas->getTileSet(3)->getTile(0, 0);
-		//int scaler = 20;
-		//temp.left += scaler;
-		//temp.top -= scaler;
-		//temp.width *= .8;
-		//temp.height *= .8;
-		this->setTexRec(temp);
+		this->setTexRec(atlas->getTileSet(3)->getTile(0, 0));
 		this->setScale(2, 2);
 
 	}

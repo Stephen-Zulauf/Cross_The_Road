@@ -16,10 +16,21 @@ int main()
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
     Grid mGrid(10, 15, w_width, w_height, &w_Main);
+
+    //keep track of elapsed time
+    sf::Clock clock;
+    //cap framerate
+    w_Main.setFramerateLimit(60);
     
     //main event loop
     while (w_Main.isOpen())
     {
+        //Compute Frame-Rate
+        float currentTime = clock.restart().asSeconds();
+        float fps = 1.0f / (currentTime);
+        std::cout << "fps: " << fps << std::endl;
+
+        //Poll for events
         sf::Event event;
       
         while (w_Main.pollEvent(event))
