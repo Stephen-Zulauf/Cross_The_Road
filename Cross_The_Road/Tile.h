@@ -38,6 +38,9 @@ public:
 	void setTexRec(sf::IntRect nRect) {
 		this->Data.setTextureRect(nRect);
 	}
+	void setScale(float x, float y) {
+		this->Data.setScale(sf::Vector2f(x, y));
+	}
 	
 	//getters
 	sf::Vector2f getPosition() {

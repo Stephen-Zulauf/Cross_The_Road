@@ -19,6 +19,8 @@ private:
 
 	//keep track of player location
 	Player* player = nullptr;
+	//track if player is dead
+	bool dead = false;
 
 	//vector of rows
 	std::vector<Row*> Tiles;
@@ -49,7 +51,7 @@ public:
 		initGrid();
 
 		//init player
-		this->player = new Player(0, 0, t_width,t_height, rows-1, floor(columns / 2));
+		this->player = new Player(0, 0, t_width,t_height, rows-1, floor(columns / 2), atlas);
 
 	}
 	
@@ -111,8 +113,12 @@ public:
 	//check for player collison before moving
 	//returns true if collison
 	bool checkCollision(int row, int col) {
-		if (this->Tiles[row]->checkMovable(col) == true) {
-			return false;
+		if (row < this->rows && row >= 0) {
+			if (col < this->columns && col >= 0) {
+				if (this->Tiles[row]->checkMovable(col) == true) {
+						return false;
+				}
+			}
 		}
 		else {
 			return true;
@@ -150,6 +156,7 @@ public:
 			
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
+				this->dead = true;
 				std::cout << "DEAD" << std::endl;
 			}
 			
@@ -167,6 +174,7 @@ public:
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
 				std::cout << "DEAD" << std::endl;
+				this->dead = true;
 			}
 			
 			break;
@@ -183,6 +191,7 @@ public:
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
 				std::cout << "DEAD" << std::endl;
+				this->dead = true;
 			}
 
 			break;
@@ -199,9 +208,9 @@ public:
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
 				std::cout << "DEAD" << std::endl;
+				this->dead = true;
 			}
-			
-			
+
 			break;
 		default:
 			break;
