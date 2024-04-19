@@ -174,4 +174,22 @@ public:
 		}
 		
 	}
+
+	bool checkMovable(int col) {
+		if (Tiles[col]->isWalkable()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	bool checkDeath(int col) {
+		if (Tiles[col]->isDeadly()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 };

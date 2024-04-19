@@ -32,21 +32,33 @@ public:
 	void draw(sf::RenderWindow* nWindow) override{
 		nWindow->draw(Data);
 	}
+
+	int getRow() {
+		return this->row;
+	}
+	int getCol() {
+		return this->col;
+	}
+
 	void updateLocation(int row, int col) {
 		this->setPosition(width * col, height * row);
 	}
+
 	void moveUp() {
 		row--;
 		this->setPosition(width * col, height * row);
 	}
+
 	void moveLeft() {
 		col--;
 		this->setPosition(width * col, height * row);
 	}
+
 	void moveDown() {
 		row++;
 		this->setPosition(width * col, height * row);
 	}
+
 	void moveRight() {
 		col++;
 		this->setPosition(width * col, height * row);

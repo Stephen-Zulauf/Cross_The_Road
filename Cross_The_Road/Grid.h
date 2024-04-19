@@ -88,6 +88,7 @@ public:
 				}
 
 			}
+			//create a 1 type row (land)
 			else {
 				Tiles.push_back(new Row(columns, 1, t_width, t_height, i, false, atlas));
 			}
@@ -107,6 +108,28 @@ public:
 		player->draw(window);
 	}
 
+	//check for player collison before moving
+	//returns true if collison
+	bool checkCollision(int row, int col) {
+		if (this->Tiles[row]->checkMovable(col) == true) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	//check if players dead after move
+	//returns true if dead
+	bool checkDeath(int row, int col) {
+		if (this->Tiles[row]->checkDeath(col) == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	void setplayer(Player n)
 	{
 		this->player = &n;
@@ -117,23 +140,68 @@ public:
 		switch (direction) {
 		case 0:
 			//move player up
-			std::cout << "player move up" << std::endl;
-			player->moveUp();
+			if (checkCollision(player->getRow() - 1, player->getCol()) == false) {
+				player->moveUp();
+				std::cout << "player move up" << std::endl;
+			}
+			else {
+				std::cout << "player colision" << std::endl;
+			}
+			
+			//check if dead
+			if (checkDeath(player->getRow(), player->getCol()) == true) {
+				std::cout << "DEAD" << std::endl;
+			}
+			
 			break;
 		case 1:
 			//move player left
-			std::cout << "player move left" << std::endl;
-			player->moveLeft();
+			if (checkCollision(player->getRow(), player->getCol()-1) == false) {
+				player->moveLeft();
+				std::cout << "player move left" << std::endl;
+			}
+			else {
+				std::cout << "player colision" << std::endl;
+			}
+
+			//check if dead
+			if (checkDeath(player->getRow(), player->getCol()) == true) {
+				std::cout << "DEAD" << std::endl;
+			}
+			
 			break;
 		case 2:
 			//move player down
-			std::cout << "player move down" << std::endl;
-			player->moveDown();
+			if (checkCollision(player->getRow()+1, player->getCol()) == false) {
+				player->moveDown();
+				std::cout << "player move down" << std::endl;
+			}
+			else {
+				std::cout << "player colision" << std::endl;
+			}
+
+			//check if dead
+			if (checkDeath(player->getRow(), player->getCol()) == true) {
+				std::cout << "DEAD" << std::endl;
+			}
+
 			break;
 		case 3:
 			//move player right
-			std::cout << "player move right" << std::endl;
-			player->moveRight();
+			if (checkCollision(player->getRow(), player->getCol()+1) == false) {
+				player->moveRight();
+				std::cout << "player move right" << std::endl;
+			}
+			else {
+				std::cout << "player colision" << std::endl;
+			}
+
+			//check if dead
+			if (checkDeath(player->getRow(), player->getCol()) == true) {
+				std::cout << "DEAD" << std::endl;
+			}
+			
+			
 			break;
 		default:
 			break;
