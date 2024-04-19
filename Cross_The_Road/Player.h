@@ -29,13 +29,19 @@ public:
 		this->width = w;
 		this->height = h;
 
-		this->setPosition(width * startCol, height * row);
+		this->setPosition(width * (col - .5), height * (row - .8));
 
 		this->atlas = nAtlas;
 
 		this->setTexture(atlas->getTileSet(3)->getTexture());
 		sf::IntRect temp = atlas->getTileSet(3)->getTile(0, 0);
+		//int scaler = 20;
+		//temp.left += scaler;
+		//temp.top -= scaler;
+		//temp.width *= .8;
+		//temp.height *= .8;
 		this->setTexRec(temp);
+		this->setScale(2, 2);
 
 	}
 	//draw to window
@@ -51,30 +57,30 @@ public:
 	}
 
 	void updateLocation(int row, int col) {
-		this->setPosition(width * col, height * row);
+		this->setPosition(width * (col - .5), height * (row - .8));
 	}
 
 	void moveUp() {
 		this->setTexRec(atlas->getTileSet(3)->getTile(0, 1));
 		row--;
-		this->setPosition(width * col, height * row);
+		this->setPosition(width * (col - .5), height * (row - .8));
 	}
 
 	void moveLeft() {
 		this->setTexRec(atlas->getTileSet(3)->getTile(0, 2));
 		col--;
-		this->setPosition(width * col, height * row);
+		this->setPosition(width * (col - .5), height * (row - .8));
 	}
 
 	void moveDown() {
 		this->setTexRec(atlas->getTileSet(3)->getTile(0, 0));
 		row++;
-		this->setPosition(width * col, height * row);
+		this->setPosition(width * (col - .5), height * (row - .8));
 	}
 
 	void moveRight() {
 		this->setTexRec(atlas->getTileSet(3)->getTile(0, 3));
 		col++;
-		this->setPosition(width * col, height * row);
+		this->setPosition(width * (col - .5), height * (row - .8));
 	}
 };
