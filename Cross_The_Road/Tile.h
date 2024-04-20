@@ -16,14 +16,26 @@ protected:
 	//movable (moves the player)
 	bool mover;
 
+	//keep track of location and demensions
+	float x = 0;
+	float y = 0;
+	float width = 0;
+	float height = 0;
+
 public:
 	//constructor
-	Tile(float x, float y, float w, float h, bool isWalkable, bool isDeadly, bool isMover) {
+	Tile(float nX, float nY, float nW, float nH, bool isWalkable, bool isDeadly, bool isMover) {
+		this->x = nX;
+		this->y = nY;
+		this->width = nW;
+		this->height = nH;
+
 		this->Data.setPosition(x, y);
-		this->Data.setSize(sf::Vector2f(w, h));
+		this->Data.setSize(sf::Vector2f(width, height));
 		this->walkable = isWalkable;
 		this->deadly = isDeadly;
 		this->mover = isMover;
+		
 	}
 
 	//draw to window
@@ -41,6 +53,10 @@ public:
 	}
 	void setScale(float x, float y) {
 		this->Data.setScale(sf::Vector2f(x, y));
+	}
+	void increaseRow() {
+		this->y -= height;
+		this->Data.setPosition(this->x, this->y);
 	}
 	
 	//getters

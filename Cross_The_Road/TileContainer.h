@@ -40,6 +40,12 @@ public:
 		return Tiles.back()->isMoving();
 	}
 
+	void increaseRow() {
+		for (int i = 0; i < Tiles.size(); i++) {
+			Tiles[i]->increaseRow();
+		}
+	}
+
 	void drawTiles(sf::RenderWindow* window) {
 		for (int i = 0; i < Tiles.size(); i++) {
 			Tiles[i]->draw(window);

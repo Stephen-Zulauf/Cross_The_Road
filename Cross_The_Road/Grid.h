@@ -31,6 +31,15 @@ private:
 	//Keep track of time from loop and update function
 	float elaTime = 0.0f;
 
+	//keep track of scrolling
+	int scroll = 0;
+
+	//keep track of rows buffer
+	int addedRows = 0;
+
+	//keep track of last row type created
+	int last = 1;
+
 public:
 	//constructor
 	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow) 
@@ -53,7 +62,7 @@ public:
 		initGrid();
 
 		//init player
-		this->player = new Player(0, 0, t_width,t_height, rows-1, floor(columns / 2), atlas);
+		this->player = new Player(0, 0, t_width,t_height, 0, floor(columns / 2), rows, atlas);
 
 	}
 	
@@ -70,8 +79,7 @@ public:
 	//for each row in the grid
 	void initGrid() {
 
-		//keep track of last row type created
-		int last = 1;
+		
 
 		//for each row
 		for (int i = 0; i < rows; i++) {
@@ -89,23 +97,23 @@ public:
 				// create a 2 row (mover)
 				if (last == 0) {
 					last = 2;
-					Rows.push_back(new Row(columns, 2, t_width, t_height, i, atlas));
+					Rows.push_back(new Row(columns, 2, t_width, t_height, i, rows, atlas));
 				}
 				//create a 0 row (water)
 				else if(type < 5) {
 					last = 0;
-					Rows.push_back(new Row(columns, 0, t_width, t_height, i, atlas));
+					Rows.push_back(new Row(columns, 0, t_width, t_height, i, rows, atlas));
 				}
 				//create a 1 type row (land)
 				else {
 					last = 1;
-					Rows.push_back(new Row(columns, 1, t_width, t_height, i, atlas));
+					Rows.push_back(new Row(columns, 1, t_width, t_height, i, rows, atlas));
 				}
 
 			}
 			//create a 1 type row (land)
 			else {
-				Rows.push_back(new Row(columns, 1, t_width, t_height, i, atlas));
+				Rows.push_back(new Row(columns, 1, t_width, t_height, i, rows, atlas));
 			}
 
 		}
@@ -114,6 +122,8 @@ public:
 
 	//draw each tile in Tiles vector
 	void drawGrid() {
+
+		std::cout << "Player row: " << player->getRow() << std::endl;
 
 		//call update elasped time
 		update();
@@ -133,11 +143,54 @@ public:
 		//increase ellapsed time
 		elaTime++;
 
+		//scroll up
+		if (scroll > 20) {
+
+			scroll = 0;
+
+			//select random row type
+			int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
+
+			//if last row created was water 
+			// create a 2 row (mover)
+			if (last == 0) {
+				last = 2;
+				Rows.push_back(new Row(columns, 2, t_width, t_height, rows, rows, atlas));
+			}
+			//create a 0 row (water)
+			else if (type < 5) {
+				last = 0;
+				Rows.push_back(new Row(columns, 0, t_width, t_height, rows, rows, atlas));
+			}
+			//create a 1 type row (land)
+			else {
+				last = 1;
+				Rows.push_back(new Row(columns, 1, t_width, t_height, rows, rows, atlas));
+			}
+
+			
+			for (int i = 0; i < Rows.size(); i++) {
+				Rows[i]->increaseRow();
+			}
+			player->increaseRow();
+			std::cout << "Player update: " << player->getRow() << std::endl;
+			
+			delete Rows.front();
+			Rows.erase(Rows.begin());
+			/*if (addedRows > 2) {
+				delete Rows.front();
+				Rows.erase(Rows.begin());
+				addedRows = 2;
+			}*/
+
+
+		}
+
 		//update rows
 		for (int i = 0; i < Rows.size(); i++) {
 
 			Rows[i]->update(elaTime);
-			
+
 		}
 
 		//check if player is on movable tile and move them
@@ -146,11 +199,6 @@ public:
 				player->moveLeft();
 				std::cout << "player move left" << std::endl;
 			}
-		}
-		
-		//reset
-		if (elaTime > 60) {
-			elaTime = 0;
 		}
 
 		//if player died reset grid
@@ -164,8 +212,20 @@ public:
 
 			this->dead = false;
 			delete this->player;
-			this->player = new Player(0, 0, t_width, t_height, rows - 1, floor(columns / 2), atlas);
+			this->player = new Player(0, 0, t_width, t_height, 0, floor(columns / 2), rows, atlas);
+
+			elaTime = 0;
+			addedRows = 0;
+			scroll = 0;
 		}
+
+		//reset
+		if (elaTime > 60) {
+			elaTime = 0;
+			scroll++;
+		}
+
+		
 
 	}
 
@@ -217,7 +277,7 @@ public:
 		switch (direction) {
 		case 0:
 			//move player up
-			if (checkCollision(player->getRow() - 1, player->getCol()) == false) {
+			if (checkCollision(player->getRow() + 1, player->getCol()) == false) {
 				player->moveUp();
 				std::cout << "player move up" << std::endl;
 			}
@@ -249,7 +309,7 @@ public:
 			break;
 		case 2:
 			//move player down
-			if (checkCollision(player->getRow()+1, player->getCol()) == false) {
+			if (checkCollision(player->getRow()-1, player->getCol()) == false) {
 				player->moveDown();
 				std::cout << "player move down" << std::endl;
 			}

@@ -14,6 +14,8 @@ private:
 
 	//number of cols in row
 	int cols = 0;
+	//number of total rows
+	int rows = 0;
 
 	/*
 	* row type
@@ -42,8 +44,9 @@ private:
 	std::vector<TileContainer*> Tiles;
 
 public:
-	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, Atlas* nAtlas) {
+	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, int nRows, Atlas* nAtlas) {
 		cols = nCols;
+		rows = nRows;
 		type = nType;
 		t_width = tWidth;
 		t_height = tHeight;
@@ -257,6 +260,13 @@ public:
 		}
 		else {
 			return false;
+		}
+	}
+
+	void increaseRow() {
+		rowNum --;
+		for (int i = 0; i < cols; i++) {
+			Tiles[i]->increaseRow();
 		}
 	}
 };
