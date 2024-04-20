@@ -141,16 +141,30 @@ public:
 		}
 
 		//check if player is on movable tile and move them
-		if (checkMovable(player->getRow(), player->getCol()-1) == true && elaTime == 60) {
-			if (checkCollision(player->getRow(), player->getCol() - 1) == false) {
+		if (checkCollision(player->getRow(), player->getCol() - 1) == false) {
+			if (checkMovable(player->getRow(), player->getCol() - 1) == true && elaTime == 60) {
 				player->moveLeft();
 				std::cout << "player move left" << std::endl;
 			}
 		}
-
+		
 		//reset
 		if (elaTime > 60) {
 			elaTime = 0;
+		}
+
+		//if player died reset grid
+		if (this->dead) {
+			for (int i = 0; i < Rows.size(); i++) {
+				delete Rows[i];
+			}
+			Rows.clear();
+
+			initGrid();
+
+			this->dead = false;
+			delete this->player;
+			this->player = new Player(0, 0, t_width, t_height, rows - 1, floor(columns / 2), atlas);
 		}
 
 	}
@@ -174,6 +188,7 @@ public:
 	//returns true if dead
 	bool checkDeath(int row, int col) {
 		if (this->Rows[row]->checkDeath(col) == true) {
+			this->dead = true;
 			return true;
 		}
 		else {
@@ -212,7 +227,6 @@ public:
 			
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
-				this->dead = true;
 				std::cout << "DEAD" << std::endl;
 			}
 			
@@ -230,7 +244,6 @@ public:
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
 				std::cout << "DEAD" << std::endl;
-				this->dead = true;
 			}
 			
 			break;
@@ -247,7 +260,6 @@ public:
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
 				std::cout << "DEAD" << std::endl;
-				this->dead = true;
 			}
 
 			break;
@@ -264,7 +276,6 @@ public:
 			//check if dead
 			if (checkDeath(player->getRow(), player->getCol()) == true) {
 				std::cout << "DEAD" << std::endl;
-				this->dead = true;
 			}
 
 			break;
