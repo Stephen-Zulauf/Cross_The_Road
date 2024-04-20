@@ -25,6 +25,9 @@ private:
 	//track which col set to generate movers on
 	int moveCol = 1;
 
+	//track direction if mover
+	int direction = 0;
+
 	//tile width/height
 	float t_width = 0;
 	float t_height = 0;
@@ -46,6 +49,7 @@ public:
 		t_height = tHeight;
 		rowNum = nRowNum;
 		atlas = nAtlas;
+		direction = (rand() % 10) % 2;
 
 		genContainers();
 		genBase();
@@ -123,9 +127,17 @@ public:
 			for (int i = 0; i < cols; i++) {
 				if (i % 2 == moveCol) {
 					Tile* temp = new mLog(t_width * i, t_height * rowNum, t_width, t_height);
-					temp->setTexture(atlas->getTileSet(2)->getTexture());
-					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
-					Tiles[i]->addTile(temp);
+					if (direction == 1) {
+						temp->setTexture(atlas->getTileSet(2)->getTexture());
+						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+						Tiles[i]->addTile(temp);
+					}
+					else {
+						temp->setTexture(atlas->getTileSet(2)->getTexture());
+						temp->setTexRec(atlas->getTileSet(2)->getTile(7, 3));
+						Tiles[i]->addTile(temp);
+					}
+					
 				}
 
 			}
@@ -158,9 +170,16 @@ public:
 		for (int i = 0; i < cols; i++) {
 			if (i % 2 == moveCol) {
 				Tile* temp = new mLog(t_width * i, t_height * rowNum, t_width, t_height);
-				temp->setTexture(atlas->getTileSet(2)->getTexture());
-				temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
-				Tiles[i]->addTile(temp);
+				if (direction == 1) {
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+					Tiles[i]->addTile(temp);
+				}
+				else {
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 3));
+					Tiles[i]->addTile(temp);
+				}
 			}
 
 		}
