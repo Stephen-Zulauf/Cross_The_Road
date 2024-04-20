@@ -12,7 +12,7 @@ private:
 	float elapsedMove = 0;
 
 public:
-	mLog(float x, float y, float w, float h) :Tile(x, y, w, h, true, false) {
+	mLog(float x, float y, float w, float h) :Tile(x, y, w, h, true, false,true) {
 		//set fill color to brown for testing
 		//Data.setFillColor(sf::Color(99, 53, 18, 255));
 	}

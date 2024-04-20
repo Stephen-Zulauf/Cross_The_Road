@@ -19,7 +19,7 @@ private:
 	Atlas* atlas = nullptr;
 
 public:
-	Player(float x, float y, float w, float h, int startRow,int startCol, Atlas* nAtlas) :Tile(x,y,w,h,true,false) {
+	Player(float x, float y, float w, float h, int startRow,int startCol, Atlas* nAtlas) :Tile(x,y,w,h,true,false,false) {
 		//set color to red for testing
 		//Data.setFillColor(sf::Color(235, 89, 52, 255));
 

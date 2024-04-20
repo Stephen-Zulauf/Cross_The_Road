@@ -233,7 +233,7 @@ public:
 		
 	}
 
-	bool checkMovable(int col) {
+	bool checkWalkable(int col) {
 		if (Tiles[col]->isWalkable()) {
 			return true;
 		}
@@ -244,6 +244,15 @@ public:
 
 	bool checkDeath(int col) {
 		if (Tiles[col]->isDeadly()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	bool checkMovable(int col) {
+		if (Tiles[col]->isMovable()) {
 			return true;
 		}
 		else {

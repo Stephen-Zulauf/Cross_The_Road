@@ -7,7 +7,7 @@ class Land : public Tile {
 private:
 
 public:
-	Land(float x, float y, float w, float h) :Tile(x, y, w, h, true,false) {
+	Land(float x, float y, float w, float h) :Tile(x, y, w, h, true,false,false) {
 		//set fill color to green for testing
 		//Data.setFillColor(sf::Color::White);
 	}

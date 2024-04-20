@@ -133,15 +133,24 @@ public:
 		//increase ellapsed time
 		elaTime++;
 
-		//reset
-		if (elaTime > 60) {
-			elaTime = 0;
-		}
-
 		//update rows
 		for (int i = 0; i < Rows.size(); i++) {
 
 			Rows[i]->update(elaTime);
+			
+		}
+
+		//check if player is on movable tile and move them
+		if (checkMovable(player->getRow(), player->getCol()-1) == true && elaTime == 60) {
+			if (checkCollision(player->getRow(), player->getCol() - 1) == false) {
+				player->moveLeft();
+				std::cout << "player move left" << std::endl;
+			}
+		}
+
+		//reset
+		if (elaTime > 60) {
+			elaTime = 0;
 		}
 
 	}
@@ -165,6 +174,17 @@ public:
 	//returns true if dead
 	bool checkDeath(int row, int col) {
 		if (this->Rows[row]->checkDeath(col) == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	//check if players on a movable tile after move
+	//returns true if movable
+	bool checkMovable(int row, int col) {
+		if (this->Rows[row]->checkMovable(col) == true) {
 			return true;
 		}
 		else {

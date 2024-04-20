@@ -7,7 +7,7 @@ class Water : public Tile {
 private:
 
 public:
-	Water(float x, float y, float w, float h) :Tile(x, y, w, h,true,true) {
+	Water(float x, float y, float w, float h) :Tile(x, y, w, h,true,true,false) {
 		//set fill color to green for testing
 		Data.setFillColor(sf::Color::White);
 	}

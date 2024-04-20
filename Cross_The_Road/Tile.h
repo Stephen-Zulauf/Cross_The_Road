@@ -13,13 +13,17 @@ protected:
 	//will the tile kill the player
 	bool deadly;
 
+	//movable (moves the player)
+	bool mover;
+
 public:
 	//constructor
-	Tile(float x, float y, float w, float h, bool isWalkable, bool isDeadly) {
+	Tile(float x, float y, float w, float h, bool isWalkable, bool isDeadly, bool isMover) {
 		this->Data.setPosition(x, y);
 		this->Data.setSize(sf::Vector2f(w, h));
 		this->walkable = isWalkable;
 		this->deadly = isDeadly;
+		this->mover = isMover;
 	}
 
 	//draw to window
@@ -52,6 +56,11 @@ public:
 	//check if deadly
 	bool isDeadly() {
 		return this->deadly;
+	}
+
+	//check if moveable
+	bool isMoving() {
+		return this->mover;
 	}
 
 };
