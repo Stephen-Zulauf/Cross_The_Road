@@ -13,6 +13,11 @@ int main()
     //create main window 
     sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The River");
 
+    //view
+    /*sf::View view = w_Main.getDefaultView();
+    view.rotate(180.f);
+    w_Main.setView(view);*/
+
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
     Grid mGrid(10, 15, w_width, w_height, &w_Main);

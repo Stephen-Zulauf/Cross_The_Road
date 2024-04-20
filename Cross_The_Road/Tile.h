@@ -55,7 +55,7 @@ public:
 		this->Data.setScale(sf::Vector2f(x, y));
 	}
 	void increaseRow() {
-		this->y -= height;
+		this->y += height;
 		this->Data.setPosition(this->x, this->y);
 	}
 	

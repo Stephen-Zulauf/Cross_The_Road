@@ -79,8 +79,6 @@ public:
 	//for each row in the grid
 	void initGrid() {
 
-		
-
 		//for each row
 		for (int i = 0; i < rows; i++) {
 

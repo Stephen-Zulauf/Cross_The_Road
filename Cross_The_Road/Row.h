@@ -97,7 +97,7 @@ public:
 		
 		//water underneath everything
 		for (int i = 0; i < cols; i++) {
-			Tile* temp = new Water(t_width * i, t_height * rowNum, t_width, t_height);
+			Tile* temp = new Water(t_width * i, t_height * ((rows - 1) -rowNum), t_width, t_height);
 			temp->setTexture(atlas->getTileSet(0)->getTexture());
 			temp->setTexRec(atlas->getTileSet(0)->getTile(0, 0));
 			Tiles[i]->addTile(temp);
@@ -106,7 +106,7 @@ public:
 		if (type == 1) {
 			//generate land tiles and set textures
 			for (int i = 0; i < cols; i++) {
-				Tile* temp = new Land(t_width * i, t_height * rowNum, t_width, t_height);
+				Tile* temp = new Land(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
 				if (i == 0) {
 					temp->setTexture(atlas->getTileSet(1)->getTexture());
 					temp->setTexRec(atlas->getTileSet(1)->getTile(0, 3));
@@ -129,7 +129,7 @@ public:
 			//generate movers and set textures
 			for (int i = 0; i < cols; i++) {
 				if (i % 2 == moveCol) {
-					Tile* temp = new mLog(t_width * i, t_height * rowNum, t_width, t_height);
+					Tile* temp = new mLog(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
 					if (direction == 1) {
 						temp->setTexture(atlas->getTileSet(2)->getTexture());
 						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
@@ -151,7 +151,7 @@ public:
 	//generate tiles for obstacles
 	void genObstacles() {
 		for (int i = 0; i < cols; i++) {
-			Tile* temp = new Land(t_width * i, t_height * rowNum, t_width, t_height);
+			Tile* temp = new Land(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
 			Tiles[i]->addTile(temp);
 		}
 	}
@@ -172,7 +172,7 @@ public:
 		//make new ones
 		for (int i = 0; i < cols; i++) {
 			if (i % 2 == moveCol) {
-				Tile* temp = new mLog(t_width * i, t_height * rowNum, t_width, t_height);
+				Tile* temp = new mLog(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
 				if (direction == 1) {
 					temp->setTexture(atlas->getTileSet(2)->getTexture());
 					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
@@ -200,7 +200,7 @@ public:
 
 				if (chance > 7) {
 					std::cout << "creating bridge" << std::endl;
-					Tile* temp = new Bridge(t_width * i, t_height * rowNum, t_width, t_height);
+					Tile* temp = new Bridge(t_width * i, t_height * ((rows-1) - rowNum), t_width, t_height);
 					temp->setTexture(atlas->getTileSet(2)->getTexture());
 					switch (type) {
 					case 0:
