@@ -56,6 +56,9 @@
     <ClInclude Include="SpriteAtlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="m_Log.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="rowMaps.txt">

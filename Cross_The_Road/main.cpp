@@ -28,7 +28,7 @@ int main()
         //Compute Frame-Rate
         float currentTime = clock.restart().asSeconds();
         float fps = 1.0f / (currentTime);
-        std::cout << "fps: " << fps << std::endl;
+        //std::cout << "fps: " << fps << std::endl;
 
         //Poll for events
         sf::Event event;

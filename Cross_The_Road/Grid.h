@@ -23,11 +23,13 @@ private:
 	bool dead = false;
 
 	//vector of rows
-	std::vector<Row*> Tiles;
+	std::vector<Row*> Rows;
 
 	//add sprite atlas
 	Atlas* atlas = nullptr;
-	
+
+	//Keep track of time from loop and update function
+	float elaTime = 0.0f;
 
 public:
 	//constructor
@@ -57,16 +59,19 @@ public:
 	
 	//destructor
 	~Grid() {
-		for (int i = 0; i < Tiles.size(); i++) {
-			delete Tiles[i];
+		for (int i = 0; i < Rows.size(); i++) {
+			delete Rows[i];
 		}
-		Tiles.clear();
+		Rows.clear();
 	}
 
 	//This function resets the grid to its intital state;
 	//it uses random numbers to generate water or land
 	//for each row in the grid
 	void initGrid() {
+
+		//keep track of last row type created
+		int last = 1;
 
 		//for each row
 		for (int i = 0; i < rows; i++) {
@@ -80,19 +85,27 @@ public:
 				//select random row type
 				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
 
+				//if last row created was water 
+				// create a 2 row (mover)
+				if (last == 0) {
+					last = 2;
+					Rows.push_back(new Row(columns, 2, t_width, t_height, i, atlas));
+				}
 				//create a 0 row (water)
-				if (type < 5) {
-					Tiles.push_back(new Row(columns, 0, t_width, t_height, i, false, atlas));
+				else if(type < 5) {
+					last = 0;
+					Rows.push_back(new Row(columns, 0, t_width, t_height, i, atlas));
 				}
 				//create a 1 type row (land)
 				else {
-					Tiles.push_back(new Row(columns, 1, t_width, t_height, i, false, atlas));
+					last = 1;
+					Rows.push_back(new Row(columns, 1, t_width, t_height, i, atlas));
 				}
 
 			}
 			//create a 1 type row (land)
 			else {
-				Tiles.push_back(new Row(columns, 1, t_width, t_height, i, false, atlas));
+				Rows.push_back(new Row(columns, 1, t_width, t_height, i, atlas));
 			}
 
 		}
@@ -102,12 +115,35 @@ public:
 	//draw each tile in Tiles vector
 	void drawGrid() {
 
-		for (int i = 0; i < Tiles.size(); i++) {
+		//call update elasped time
+		update();
 
-			Tiles[i]->draw(window);
+		//draw rows
+		for (int i = 0; i < Rows.size(); i++) {
+
+			Rows[i]->draw(window);
 		}
 
 		player->draw(window);
+	}
+
+	//update moving tiles etc.
+	void update() {
+
+		//increase ellapsed time
+		elaTime++;
+
+		//reset
+		if (elaTime > 60) {
+			elaTime = 0;
+		}
+
+		//update rows
+		for (int i = 0; i < Rows.size(); i++) {
+
+			Rows[i]->update(elaTime);
+		}
+
 	}
 
 	//check for player collison before moving
@@ -115,7 +151,7 @@ public:
 	bool checkCollision(int row, int col) {
 		if (row < this->rows && row >= 0) {
 			if (col < this->columns && col >= 0) {
-				if (this->Tiles[row]->checkMovable(col) == true) {
+				if (this->Rows[row]->checkMovable(col) == true) {
 						return false;
 				}
 			}
@@ -128,7 +164,7 @@ public:
 	//check if players dead after move
 	//returns true if dead
 	bool checkDeath(int row, int col) {
-		if (this->Tiles[row]->checkDeath(col) == true) {
+		if (this->Rows[row]->checkDeath(col) == true) {
 			return true;
 		}
 		else {

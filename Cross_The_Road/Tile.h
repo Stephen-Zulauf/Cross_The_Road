@@ -23,9 +23,6 @@ public:
 	}
 
 	//draw to window
-	/*void draw(sf::RenderWindow* nWindow) {
-		nWindow->draw(Data);
-	}*/
 	virtual void draw(sf::RenderWindow* nWindow) = 0;
 
 	//setters

@@ -5,6 +5,7 @@
 #include "Water.h"
 #include "Player.h"
 #include "Bridge.h"
+#include "m_Log.h"
 #include "SpriteAtlas.h"
 #include "TileContainer.h"
 
@@ -21,15 +22,15 @@ private:
 	*/
 	int type = 0;
 
+	//track which col set to generate movers on
+	int moveCol = 1;
+
 	//tile width/height
 	float t_width = 0;
 	float t_height = 0;
 
 	//row number
 	int rowNum = 0;
-
-	//is player on this row
-	bool player = false;
 
 	//pointer to sprite map to use for drawing
 	Atlas* atlas = nullptr;
@@ -38,13 +39,12 @@ private:
 	std::vector<TileContainer*> Tiles;
 
 public:
-	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, bool nPlayer, Atlas* nAtlas) {
+	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, Atlas* nAtlas) {
 		cols = nCols;
 		type = nType;
 		t_width = tWidth;
 		t_height = tHeight;
 		rowNum = nRowNum;
-		player = nPlayer;
 		atlas = nAtlas;
 
 		genContainers();
@@ -67,8 +67,15 @@ public:
 		}
 	}
 
-	void update(int playerPos) {
-		
+	void update(float elaTime) {
+
+		//update movers
+		if (type == 2) {
+			if (elaTime == 59) {
+				genMovers();
+			}
+		}
+
 	}
 
 	//generate tile containers
@@ -90,6 +97,7 @@ public:
 		}
 
 		if (type == 1) {
+			//generate land tiles and set textures
 			for (int i = 0; i < cols; i++) {
 				Tile* temp = new Land(t_width * i, t_height * rowNum, t_width, t_height);
 				if (i == 0) {
@@ -110,6 +118,18 @@ public:
 				
 			}
 		}
+		else if (type == 2) {
+			//generate movers and set textures
+			for (int i = 0; i < cols; i++) {
+				if (i % 2 == moveCol) {
+					Tile* temp = new mLog(t_width * i, t_height * rowNum, t_width, t_height);
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+					Tiles[i]->addTile(temp);
+				}
+
+			}
+		}
 		
 	}
 
@@ -123,10 +143,29 @@ public:
 
 	//generate movables
 	void genMovers() {
+
+		//clear old ones
 		for (int i = 0; i < cols; i++) {
-			Tile* temp = new Land(t_width * i, t_height * rowNum, t_width, t_height);
-			Tiles[i]->addTile(temp);
+			if (i % 2 == moveCol) {
+				Tiles[i]->removeTile();
+			}
 		}
+
+		//switch to odd or even row
+		moveCol = !moveCol;
+
+		//make new ones
+		for (int i = 0; i < cols; i++) {
+			if (i % 2 == moveCol) {
+				Tile* temp = new mLog(t_width * i, t_height * rowNum, t_width, t_height);
+				temp->setTexture(atlas->getTileSet(2)->getTexture());
+				temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+				Tiles[i]->addTile(temp);
+			}
+
+		}
+
+		
 	}
 
 	//generate bridges (if water type)
