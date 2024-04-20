@@ -142,7 +142,7 @@ public:
 		elaTime++;
 
 		//scroll up
-		if (scroll > 20) {
+		if (scroll > 10) {
 
 			scroll = 0;
 

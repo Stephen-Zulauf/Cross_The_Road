@@ -21,6 +21,9 @@ public:
 		//3
 		TileSet player(192, 192, 4, 4, "Character.png");
 		tileSets.push_back(player);
+		//4
+		TileSet chest(144, 96, 6, 9, "furn.png");
+		tileSets.push_back(chest);
 	}
 
 	TileSet* getTileSet(int id) {

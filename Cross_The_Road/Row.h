@@ -17,6 +17,9 @@ private:
 	//number of total rows
 	int rows = 0;
 
+	//row offset for drawing backwards
+	int yOffset = 0;
+
 	/*
 	* row type
 	* 0 = water
@@ -24,11 +27,12 @@ private:
 	*/
 	int type = 0;
 
-	//track which col set to generate movers on
-	int moveCol = 1;
-
 	//track direction if mover
 	int direction = 0;
+	//move tile type
+	int mType = 0;
+	//mover spacing
+	int mSpace = 0;
 
 	//tile width/height
 	float t_width = 0;
@@ -47,12 +51,19 @@ public:
 	Row(int nCols, int nType, int tWidth, int tHeight, int nRowNum, int nRows, Atlas* nAtlas) {
 		cols = nCols;
 		rows = nRows;
+		
+
 		type = nType;
 		t_width = tWidth;
 		t_height = tHeight;
 		rowNum = nRowNum;
 		atlas = nAtlas;
 		direction = (rand() % 10) % 2;
+		mType = rand() % 7;
+		//mSpace = (rand() % 7)+1;
+		mSpace = 1;
+
+		yOffset = (nRows - 1) - nRows;
 
 		genContainers();
 		genBase();
@@ -127,18 +138,40 @@ public:
 		}
 		else if (type == 2) {
 			//generate movers and set textures
-			for (int i = 0; i < cols; i++) {
-				if (i % 2 == moveCol) {
+			for (int i = 0; i < cols; i+=mSpace) {
+				if (i % 2 == direction) {
 					Tile* temp = new mLog(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
-					if (direction == 1) {
+					switch (mType) {
+					case 0:
 						temp->setTexture(atlas->getTileSet(2)->getTexture());
 						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
 						Tiles[i]->addTile(temp);
-					}
-					else {
+						break;
+					case 1:
 						temp->setTexture(atlas->getTileSet(2)->getTexture());
 						temp->setTexRec(atlas->getTileSet(2)->getTile(7, 3));
 						Tiles[i]->addTile(temp);
+						break;
+					case 3:
+						temp->setTexture(atlas->getTileSet(2)->getTexture());
+						temp->setTexRec(atlas->getTileSet(2)->getTile(6, 2));
+						Tiles[i]->addTile(temp);
+						break;
+					case 4:
+						temp->setTexture(atlas->getTileSet(2)->getTexture());
+						temp->setTexRec(atlas->getTileSet(2)->getTile(7, 4));
+						Tiles[i]->addTile(temp);
+						break;
+					case 5:
+						temp->setTexture(atlas->getTileSet(4)->getTexture());
+						temp->setTexRec(atlas->getTileSet(4)->getTile(4, 0));
+						Tiles[i]->addTile(temp);
+						break;
+					default:
+						temp->setTexture(atlas->getTileSet(2)->getTexture());
+						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+						Tiles[i]->addTile(temp);
+						break;
 					}
 					
 				}
@@ -160,33 +193,54 @@ public:
 	void genMovers() {
 
 		//clear old ones
-		for (int i = 0; i < cols; i++) {
-			if (i % 2 == moveCol) {
+		for (int i = 0; i < cols; i+=mSpace) {
+			if (i % 2 == direction) {
 				Tiles[i]->removeTile();
 			}
 		}
 
 		//switch to odd or even row
-		moveCol = !moveCol;
+		direction = !direction;
 
 		//make new ones
-		for (int i = 0; i < cols; i++) {
-			if (i % 2 == moveCol) {
+		for (int i = 0; i < cols; i+=mSpace) {
+			if (i % 2 == direction) {
 				Tile* temp = new mLog(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
-				if (direction == 1) {
+				switch (mType) {
+				case 0:
 					temp->setTexture(atlas->getTileSet(2)->getTexture());
 					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
 					Tiles[i]->addTile(temp);
-				}
-				else {
+					break;
+				case 1:
 					temp->setTexture(atlas->getTileSet(2)->getTexture());
 					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 3));
 					Tiles[i]->addTile(temp);
+					break;
+				case 3:
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					temp->setTexRec(atlas->getTileSet(2)->getTile(6, 2));
+					Tiles[i]->addTile(temp);
+					break;
+				case 4:
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 4));
+					Tiles[i]->addTile(temp);
+					break;
+				case 5:
+					temp->setTexture(atlas->getTileSet(4)->getTexture());
+					temp->setTexRec(atlas->getTileSet(4)->getTile(4, 0));
+					Tiles[i]->addTile(temp);
+					break;
+				default:
+					temp->setTexture(atlas->getTileSet(2)->getTexture());
+					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+					Tiles[i]->addTile(temp);
+					break;
 				}
 			}
 
 		}
-
 		
 	}
 
