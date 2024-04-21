@@ -3,7 +3,6 @@
 #include "config.h"
 #include "Land.h"
 #include "Water.h"
-#include "Player.h"
 #include "Bridge.h"
 #include "m_Log.h"
 #include "SpriteAtlas.h"

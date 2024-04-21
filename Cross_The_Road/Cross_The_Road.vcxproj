@@ -142,6 +142,7 @@
     <ClInclude Include="Land.h" />
     <ClInclude Include="m_Log.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerLogic.h" />
     <ClInclude Include="Row.h" />
     <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="Tile.h" />

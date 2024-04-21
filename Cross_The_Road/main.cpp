@@ -1,5 +1,5 @@
 #include "config.h"
-#include "Grid.h"
+#include "PlayerLogic.h"
 
 int main()
 {
@@ -13,14 +13,15 @@ int main()
     //create main window 
     sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The River");
 
-    //view
-    /*sf::View view = w_Main.getDefaultView();
-    view.rotate(180.f);
-    w_Main.setView(view);*/
+    //create sprite atlas
+    Atlas atlas;
 
     //create instance of grid
     //rows, columns, window width/height, handle to window instance
-    Grid mGrid(10, 15, w_width, w_height, &w_Main);
+    Grid mGrid(10, 15, w_width, w_height, &w_Main, &atlas);
+
+    //create player logic grid
+    PlayerLogic logic(&mGrid, &atlas, &w_Main);
 
     //keep track of elapsed time
     sf::Clock clock;
@@ -47,19 +48,21 @@ int main()
             case sf::Event::KeyPressed:
                 if (event.key.scancode == sf::Keyboard::W) {
                     //move player up
-                    mGrid.moveplayer(0);
+                    logic.moveRequest(0);
                 }
                 else if (event.key.scancode == sf::Keyboard::A) {
                     //move player left
-                    mGrid.moveplayer(1);
+                    logic.moveRequest(1);
+                    
                 }
                 else if (event.key.scancode == sf::Keyboard::S) {
                     //move player down
-                    mGrid.moveplayer(2);
+                    logic.moveRequest(2);
+                    
                 }
                 else if (event.key.scancode == sf::Keyboard::D) {
                     //move player right
-                    mGrid.moveplayer(3);
+                    logic.moveRequest(3);
                 }
                 break;
             }
@@ -71,6 +74,9 @@ int main()
 
         //draw grid here
         mGrid.drawGrid();
+
+        //player logic
+        logic.loop();
 
         //show window
         w_Main.display();
