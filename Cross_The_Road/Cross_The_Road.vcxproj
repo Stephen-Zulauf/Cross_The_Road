@@ -141,6 +141,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Land.h" />
     <ClInclude Include="m_Log.h" />
+    <ClInclude Include="Obsticale.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerLogic.h" />
     <ClInclude Include="Row.h" />

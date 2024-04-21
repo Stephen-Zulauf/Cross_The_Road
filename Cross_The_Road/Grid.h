@@ -26,14 +26,8 @@ private:
 	//add sprite atlas
 	Atlas* atlas = nullptr;
 
-	//Keep track of time for update function
-	float elaTime = 0.0f;
-
 	//keep track of scrolling
 	int scroll = 0;
-
-	//keep track of rows buffer
-	int addedRows = 0;
 
 	//keep track of last row type created
 	int last = 1;
@@ -113,6 +107,10 @@ public:
 					last = 2;
 					Rows.push_back(new Row(columns, 2, t_width, t_height, i, rows, atlas));
 				}
+				else if (last == 1) {
+					last = 0;
+					Rows.push_back(new Row(columns, 0, t_width, t_height, i, rows, atlas));
+				}
 				//create a 0 row (water)
 				else if(type < 5) {
 					last = 0;
@@ -152,7 +150,7 @@ public:
 	}
 
 	//update moving tiles etc.
-	void update(bool isUpdate) {
+	void update(bool isUpdate, bool removal) {
 
 		//if player died reset grid
 		if (this->dead) {
@@ -165,50 +163,43 @@ public:
 
 			this->dead = false;
 
-			elaTime = 0;
-			addedRows = 0;
 			scroll = 0;
+		}
+
+		//remove row from main clock
+		if (removal) {
+			//select random row type
+			int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
+
+			//if last row created was water 
+			// create a 2 row (mover)
+			if (last == 0) {
+				last = 2;
+				Rows.push_back(new Row(columns, 2, t_width, t_height, rows, rows, atlas));
+			}
+			//create a 0 row (water)
+			else if (type < 5) {
+				last = 0;
+				Rows.push_back(new Row(columns, 0, t_width, t_height, rows, rows, atlas));
+			}
+			//create a 1 type row (land)
+			else {
+				last = 1;
+				Rows.push_back(new Row(columns, 1, t_width, t_height, rows, rows, atlas));
+			}
+
+
+			for (int i = 0; i < Rows.size(); i++) {
+				Rows[i]->increaseRow();
+			}
+
+			delete Rows.front();
+			Rows.erase(Rows.begin());
+
 		}
 
 		//if update from main clock
 		if (isUpdate) {
-
-			scroll++;
-
-			//scroll up
-			if (scroll > 10) {
-
-				scroll = 0;
-
-				//select random row type
-				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
-
-				//if last row created was water 
-				// create a 2 row (mover)
-				if (last == 0) {
-					last = 2;
-					Rows.push_back(new Row(columns, 2, t_width, t_height, rows, rows, atlas));
-				}
-				//create a 0 row (water)
-				else if (type < 5) {
-					last = 0;
-					Rows.push_back(new Row(columns, 0, t_width, t_height, rows, rows, atlas));
-				}
-				//create a 1 type row (land)
-				else {
-					last = 1;
-					Rows.push_back(new Row(columns, 1, t_width, t_height, rows, rows, atlas));
-				}
-
-
-				for (int i = 0; i < Rows.size(); i++) {
-					Rows[i]->increaseRow();
-				}
-
-				delete Rows.front();
-				Rows.erase(Rows.begin());
-
-			}
 
 			//update rows
 			for (int i = 0; i < Rows.size(); i++) {

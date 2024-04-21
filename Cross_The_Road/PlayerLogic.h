@@ -83,24 +83,23 @@ public:
 	//logic loop
 	//returns if dead to check in main and reset grid
 	//returns true if player died
-	void loop(bool isUpdate) {
+	void loop(bool isUpdate, bool removal, bool* dead) {
 
 		//move with the grid
 		if (isUpdate) {
-			scroll++;
-			if (scroll > 10) {
-				//change location
-				location.y -= 1;
-				player->updateLocation(location.y, location.x);
-
-				scroll = 0;
-			}
 			
 			if (mover) {
 				//change location
 				location.x -= 1;
 				player->updateLocation(location.y, location.x);
 			}
+		}
+
+		//if row removed
+		if (removal) {
+			//change location
+			location.y -= 1;
+			player->updateLocation(location.y, location.x);
 		}
 
 		//check if dead
@@ -180,6 +179,8 @@ public:
 		else {
 			//tell grid player died
 			mGrid->isDead(true);
+			//tell master clock player died
+			*dead = true;
 
 			//reset player location
 			location.x = gridSize.x / 2;

@@ -54,8 +54,15 @@ public:
 		return this->col;
 	}
 
+	void updateTexture(int direction, int cycle) {
+		this->setTexRec(atlas->getTileSet(3)->getTile(direction, cycle));
+	}
+
 	void updateLocation(int row, int col) {
+
+		//set postion
 		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
+		
 	}
 
 };

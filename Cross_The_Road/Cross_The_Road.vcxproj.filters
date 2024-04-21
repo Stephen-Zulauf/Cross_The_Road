@@ -62,6 +62,9 @@
     <ClInclude Include="PlayerLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Obsticale.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="rowMaps.txt">
