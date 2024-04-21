@@ -27,13 +27,24 @@ int main()
     sf::Clock clock;
     //cap framerate
     w_Main.setFramerateLimit(60);
+
+    //master update from clock
+    bool update = false;
     
     //main event loop
     while (w_Main.isOpen())
     {
         //Compute Frame-Rate
-        float currentTime = clock.restart().asSeconds();
-        float fps = 1.0f / (currentTime);
+        //float currentTime = clock.restart().asSeconds();
+        float currentTime = clock.getElapsedTime().asSeconds();
+        if (currentTime >= .5) {
+            update = true;
+            clock.restart();
+        }
+        else {
+            update = false;
+        }
+        //float fps = 1.0f / (currentTime);
         //std::cout << "fps: " << fps << std::endl;
 
         //Poll for events
@@ -72,11 +83,17 @@ int main()
         //clear
         w_Main.clear();
 
+        //update moving grid parts
+        mGrid.update(update);
+
+        //player logic
+        logic.loop(update);
+
         //draw grid here
         mGrid.drawGrid();
 
-        //player logic
-        logic.loop();
+        //draw player on top
+        logic.getPlayer()->draw(&w_Main);
 
         //show window
         w_Main.display();

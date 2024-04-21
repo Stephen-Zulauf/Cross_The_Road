@@ -26,7 +26,7 @@ private:
 	//add sprite atlas
 	Atlas* atlas = nullptr;
 
-	//Keep track of time from loop and update function
+	//Keep track of time for update function
 	float elaTime = 0.0f;
 
 	//keep track of scrolling
@@ -137,9 +137,6 @@ public:
 	//draw each tile in Tiles vector
 	void drawGrid() {
 
-		//call update elasped time
-		update();
-
 		//draw rows
 		for (int i = 0; i < Rows.size(); i++) {
 
@@ -155,10 +152,7 @@ public:
 	}
 
 	//update moving tiles etc.
-	void update() {
-		
-		//increase ellapsed time
-		elaTime++;
+	void update(bool isUpdate) {
 
 		//if player died reset grid
 		if (this->dead) {
@@ -176,71 +170,94 @@ public:
 			scroll = 0;
 		}
 
-		//scroll up
-		if (scroll > 10) {
+		//if update from main clock
+		if (isUpdate) {
 
-			scroll = 0;
-
-			//select random row type
-			int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
-
-			//if last row created was water 
-			// create a 2 row (mover)
-			if (last == 0) {
-				last = 2;
-				Rows.push_back(new Row(columns, 2, t_width, t_height, rows, rows, atlas));
-			}
-			//create a 0 row (water)
-			else if (type < 5) {
-				last = 0;
-				Rows.push_back(new Row(columns, 0, t_width, t_height, rows, rows, atlas));
-			}
-			//create a 1 type row (land)
-			else {
-				last = 1;
-				Rows.push_back(new Row(columns, 1, t_width, t_height, rows, rows, atlas));
-			}
-
-			
-			for (int i = 0; i < Rows.size(); i++) {
-				Rows[i]->increaseRow();
-			}
-			
-			delete Rows.front();
-			Rows.erase(Rows.begin());
-
-		}
-
-		//update rows
-		for (int i = 0; i < Rows.size(); i++) {
-
-			Rows[i]->update(elaTime);
-
-		}
-
-		//reset
-		if (elaTime > 60) {
-			elaTime = 0;
 			scroll++;
+
+			//scroll up
+			if (scroll > 10) {
+
+				scroll = 0;
+
+				//select random row type
+				int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
+
+				//if last row created was water 
+				// create a 2 row (mover)
+				if (last == 0) {
+					last = 2;
+					Rows.push_back(new Row(columns, 2, t_width, t_height, rows, rows, atlas));
+				}
+				//create a 0 row (water)
+				else if (type < 5) {
+					last = 0;
+					Rows.push_back(new Row(columns, 0, t_width, t_height, rows, rows, atlas));
+				}
+				//create a 1 type row (land)
+				else {
+					last = 1;
+					Rows.push_back(new Row(columns, 1, t_width, t_height, rows, rows, atlas));
+				}
+
+
+				for (int i = 0; i < Rows.size(); i++) {
+					Rows[i]->increaseRow();
+				}
+
+				delete Rows.front();
+				Rows.erase(Rows.begin());
+
+			}
+
+			//update rows
+			for (int i = 0; i < Rows.size(); i++) {
+
+				Rows[i]->update();
+
+			}
 		}
 
 	}
 
 	//check if tile is walkable
 	bool checkWalkable(int row, int col) {
-		return this->Rows[row]->checkWalkable(col);
+		if (row < rows && row >= 0) {
+			if (col < columns && col >= 0) {
+				return this->Rows[row]->checkWalkable(col);
+			}
+		}
+		else {
+			return false;
+		}
+		
 	}
 
 	//check if players dead after move
 	//returns true if dead
 	bool checkDeath(int row, int col) {
-		return this->Rows[row]->checkDeath(col);
+		if (row < rows && row >= 0) {
+			if (col < columns && col >= 0) {
+				return this->Rows[row]->checkDeath(col);
+			}
+		}
+		else {
+			return false;
+		}
 	}
 
 	//check if players on a movable tile after move
 	//returns true if movable
 	bool checkMovable(int row, int col) {
-		return this->Rows[row]->checkMovable(col);
+		if (row < rows && row >= 0) {
+			if (col < columns && col >= 0) {
+				return this->Rows[row]->checkMovable(col);
+			}
+		}
+		else {
+			return false;
+		}
+
 	}
 
 	

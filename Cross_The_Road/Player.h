@@ -58,33 +58,4 @@ public:
 		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
 	}
 
-	void increaseRow() {
-		row--;
-		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
-		
-	}
-
-	void moveUp() {
-		this->setTexRec(atlas->getTileSet(3)->getTile(0, 1));
-		row++;
-		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
-	}
-
-	void moveLeft() {
-		this->setTexRec(atlas->getTileSet(3)->getTile(0, 2));
-		col--;
-		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
-	}
-
-	void moveDown() {
-		this->setTexRec(atlas->getTileSet(3)->getTile(0, 0));
-		row--;
-		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
-	}
-
-	void moveRight() {
-		this->setTexRec(atlas->getTileSet(3)->getTile(0, 3));
-		col++;
-		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
-	}
 };

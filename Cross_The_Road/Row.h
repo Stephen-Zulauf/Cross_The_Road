@@ -84,13 +84,11 @@ public:
 		}
 	}
 
-	void update(float elaTime) {
+	void update() {
 
 		//update movers
 		if (type == 2) {
-			if (elaTime == 59) {
-				genMovers();
-			}
+			genMovers();
 		}
 
 	}

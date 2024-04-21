@@ -31,6 +31,13 @@ private:
 	//request to move player
 	int direction = -1;
 
+	//track if on movable tile
+	bool mover = false;
+
+	//Keep track of time from loop and update function
+	bool update = false;
+	int scroll = 0;
+
 public:
 
 	PlayerLogic(Grid* nGrid, Atlas* nAtlas, sf::RenderWindow* nWindow) {
@@ -63,94 +70,38 @@ public:
 		delete player;
 	}
 
+	//get player for drawing
+	Player* getPlayer() {
+		return this->player;
+	}
+
 	//request the player moves
 	void moveRequest(int nDirection) {
 		direction = nDirection;
 	}
 
-	//player movement
-	//void moveplayer(int nDirection)
-	//{
-	//	//need to reset move direction to -1
-	//	switch (nDirection) {
-	//	case 0:
-	//		//move player up
-	//		if (checkCollision(player->getRow() + 1, player->getCol()) == false) {
-	//			player->moveUp();
-	//			std::cout << "player move up" << std::endl;
-	//		}
-	//		else {
-	//			std::cout << "player colision" << std::endl;
-	//		}
-
-	//		//check if dead
-	//		if (checkDeath(player->getRow(), player->getCol()) == true) {
-	//			this->dead = true;
-	//			std::cout << "DEAD" << std::endl;
-	//		}
-
-	//		break;
-	//	case 1:
-	//		//move player left
-	//		if (checkCollision(player->getRow(), player->getCol() - 1) == false) {
-	//			player->moveLeft();
-	//			std::cout << "player move left" << std::endl;
-	//		}
-	//		else {
-	//			std::cout << "player colision" << std::endl;
-	//		}
-
-	//		//check if dead
-	//		if (checkDeath(player->getRow(), player->getCol()) == true) {
-	//			this->dead = true;
-	//			std::cout << "DEAD" << std::endl;
-	//		}
-
-	//		break;
-	//	case 2:
-	//		//move player down
-	//		if (checkCollision(player->getRow() - 1, player->getCol()) == false) {
-	//			player->moveDown();
-	//			std::cout << "player move down" << std::endl;
-	//		}
-	//		else {
-	//			std::cout << "player colision" << std::endl;
-	//		}
-
-	//		//check if dead
-	//		if (checkDeath(player->getRow(), player->getCol()) == true) {
-	//			this->dead = true;
-	//			std::cout << "DEAD" << std::endl;
-	//		}
-
-	//		break;
-	//	case 3:
-	//		//move player right
-	//		if (checkCollision(player->getRow(), player->getCol() + 1) == false) {
-	//			player->moveRight();
-	//			std::cout << "player move right" << std::endl;
-	//		}
-	//		else {
-	//			std::cout << "player colision" << std::endl;
-	//		}
-
-	//		//check if dead
-	//		if (checkDeath(player->getRow(), player->getCol()) == true) {
-	//			this->dead = true;
-	//			std::cout << "DEAD" << std::endl;
-	//		}
-
-	//		break;
-	//	default:
-	//		break;
-	//	}
-
-	//}
-
 	//logic loop
 	//returns if dead to check in main and reset grid
 	//returns true if player died
-	void loop() {
+	void loop(bool isUpdate) {
+
+		//move with the grid
+		if (isUpdate) {
+			scroll++;
+			if (scroll > 10) {
+				//change location
+				location.y -= 1;
+				player->updateLocation(location.y, location.x);
+
+				scroll = 0;
+			}
+			
+			if (mover) {
+				//change location
+				location.x -= 1;
+				player->updateLocation(location.y, location.x);
+			}
+		}
 
 		//check if dead
 		if (mGrid->checkDeath(location.y, location.x) == false) {
@@ -216,14 +167,13 @@ public:
 				}
 				
 			}
-
-			//check if on a moving tile
+			//check if on moving tile
 			if (mGrid->checkMovable(location.y, location.x)) {
-				//TODO check direction of moving row here
-				//move player left for now
-				//change location
-				location.x += 1;
-				player->updateLocation(location.y, location.x);
+				mover = true;
+				//std::cout << "mover" << std::endl;
+			}
+			else {
+				mover = false;
 			}
 
 		}
@@ -235,10 +185,10 @@ public:
 			location.x = gridSize.x / 2;
 			location.y = 0;
 			player->updateLocation(location.y, location.x);
+
+			scroll = 0;
 		}
 
-		std::cout << "player row " << player->getRow() << std::endl;
-		std::cout << "player col " << player->getCol() << std::endl;
 		player->draw(window);
 	}
 };
