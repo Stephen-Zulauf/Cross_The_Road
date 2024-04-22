@@ -65,9 +65,15 @@
     <ClInclude Include="Obsticale.h">
       <Filter>Header Files\Tiles</Filter>
     </ClInclude>
+    <ClInclude Include="Tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="rowMaps.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="README.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -146,12 +146,14 @@
     <ClInclude Include="PlayerLogic.h" />
     <ClInclude Include="Row.h" />
     <ClInclude Include="SpriteAtlas.h" />
+    <ClInclude Include="Tests.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileContainer.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="README.txt" />
     <Text Include="rowMaps.txt" />
   </ItemGroup>
   <ItemGroup>
