@@ -16,6 +16,21 @@
     <Filter Include="Header Files\Tiles">
       <UniqueIdentifier>{b78ddb5e-6c0f-424e-96b3-334d6ea5c21c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tiles\Movers">
+      <UniqueIdentifier>{f56a9f34-26c7-40e0-b3a4-5323b9c9d52e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tiles\Bridges">
+      <UniqueIdentifier>{80ae813d-f826-4a7c-9094-fcd074b51baf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tiles\Obstacles">
+      <UniqueIdentifier>{9be9a9e1-d920-4c53-b4a3-9f3e89187bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tiles\Water">
+      <UniqueIdentifier>{97be5ec6-6a1e-441f-8ccf-f992504d7d68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tiles\Land">
+      <UniqueIdentifier>{5c09f906-b288-41d4-8e84-64f46b9f0ed6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,16 +47,7 @@
     <ClInclude Include="Tile.h">
       <Filter>Header Files\Tiles</Filter>
     </ClInclude>
-    <ClInclude Include="Land.h">
-      <Filter>Header Files\Tiles</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files\Tiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Water.h">
-      <Filter>Header Files\Tiles</Filter>
-    </ClInclude>
-    <ClInclude Include="Bridge.h">
       <Filter>Header Files\Tiles</Filter>
     </ClInclude>
     <ClInclude Include="TileSet.h">
@@ -56,35 +62,50 @@
     <ClInclude Include="SpriteAtlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="m_Log.h">
-      <Filter>Header Files\Tiles</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerLogic.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Obsticale.h">
-      <Filter>Header Files\Tiles</Filter>
     </ClInclude>
     <ClInclude Include="Tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mLog.h">
+      <Filter>Header Files\Tiles\Movers</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Header Files\Tiles\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Header Files\Tiles\Water</Filter>
+    </ClInclude>
+    <ClInclude Include="RedMush.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesInclude.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="rowMaps.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="README.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Assets\Tilesets\Water.png">
+    <Image Include="Bridge.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\Assets\Tilesets\Grass.png">
+    <Image Include="Character.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\Assets\Characters\Basic Charakter Spritesheet.png">
+    <Image Include="furn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Water.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -22,20 +22,24 @@ private:
 	Atlas* atlas = nullptr;
 
 public:
-	Player(float x, float y, float w, float h, int startRow,int startCol, int tRows, Atlas* nAtlas) :Tile(x,y,w,h,true,false,false) {
+	Player(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas) 
+		:Tile(nRow, nCol, tRows, nW, nH, true, false, false, atlas) {
 		//set color to red for testing
 		//Data.setFillColor(sf::Color(235, 89, 52, 255));
 
-		this->row = startRow;
-		this->col = startCol;
+		this->row = nRow;
+		this->col = nCol;
 		this->totalRows = tRows;
 
-		this->width = w;
-		this->height = h;
+		this->width = nW;
+		this->height = nH;
 
-		this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));
+		//this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));
 
-		this->atlas = nAtlas;
+		//update location with scale offset
+		updateLocation(row, col);
+
+		this->atlas = atlas;
 
 		this->setTexture(atlas->getTileSet(3)->getTexture());
 		this->setTexRec(atlas->getTileSet(3)->getTile(0, 0));
@@ -60,8 +64,10 @@ public:
 
 	void updateLocation(int row, int col) {
 
+		//this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));
+		//(old offset reference)
 		//set postion
-		this->setPosition(width * (col - .5), height * ((totalRows - 1) - row - .8));
+		this->setPosition(row,col,.5,.8);
 		
 	}
 

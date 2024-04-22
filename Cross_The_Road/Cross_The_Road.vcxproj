@@ -136,12 +136,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bridge.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="Land.h" />
-    <ClInclude Include="m_Log.h" />
-    <ClInclude Include="Obsticale.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="mLog.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerLogic.h" />
     <ClInclude Include="Row.h" />
@@ -150,16 +149,19 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileContainer.h" />
     <ClInclude Include="TileSet.h" />
+    <ClInclude Include="RedMush.h" />
+    <ClInclude Include="TilesInclude.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
-    <Text Include="rowMaps.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Assets\Characters\Basic Charakter Spritesheet.png" />
-    <Image Include="..\Assets\Tilesets\Grass.png" />
-    <Image Include="..\Assets\Tilesets\Water.png" />
+    <Image Include="Bridge.png" />
+    <Image Include="Character.png" />
+    <Image Include="furn.png" />
+    <Image Include="Grass.png" />
+    <Image Include="Water.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

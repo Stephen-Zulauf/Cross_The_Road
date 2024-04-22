@@ -1,11 +1,7 @@
 #pragma once
 
 #include "config.h"
-#include "Land.h"
-#include "Water.h"
-#include "Bridge.h"
-#include "m_Log.h"
-#include "Obsticale.h"
+#include "TilesInclude.h"
 #include "SpriteAtlas.h"
 #include "TileContainer.h"
 
@@ -60,15 +56,11 @@ public:
 		atlas = nAtlas;
 		direction = (rand() % 10) % 2;
 		mType = rand() % 7;
-		//mSpace = (rand() % 7)+1;
-		mSpace = 1;
-
-		yOffset = (nRows - 1) - nRows;
 
 		genContainers();
 		genBase();
 		genBridges();
-		genObsticals();
+		//genObsticals();
 	}
 	Row(Row& copy) {
 
@@ -107,29 +99,24 @@ public:
 		
 		//water underneath everything
 		for (int i = 0; i < cols; i++) {
-			Tile* temp = new Water(t_width * i, t_height * ((rows - 1) -rowNum), t_width, t_height);
-			temp->setTexture(atlas->getTileSet(0)->getTexture());
-			temp->setTexRec(atlas->getTileSet(0)->getTile(0, 0));
+			Tile* temp = new Water(rowNum, i, rows, t_width, t_height, atlas, 1);
 			Tiles[i]->addTile(temp);
 		}
 
 		if (type == 1) {
 			//generate land tiles and set textures
 			for (int i = 0; i < cols; i++) {
-				Tile* temp = new Land(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
+
 				if (i == 0) {
-					temp->setTexture(atlas->getTileSet(1)->getTexture());
-					temp->setTexRec(atlas->getTileSet(1)->getTile(0, 3));
+					Tile* temp = new Grass(rowNum, i, rows, t_width, t_height, atlas, 0);
 					Tiles[i]->addTile(temp);
 				}
 				else if (i == cols - 1) {
-					temp->setTexture(atlas->getTileSet(1)->getTexture());
-					temp->setTexRec(atlas->getTileSet(1)->getTile(2, 3));
+					Tile* temp = new Grass(rowNum, i, rows, t_width, t_height, atlas, 2);
 					Tiles[i]->addTile(temp);
 				}
 				else {
-					temp->setTexture(atlas->getTileSet(1)->getTexture());
-					temp->setTexRec(atlas->getTileSet(1)->getTile(1, 3));
+					Tile* temp = new Grass(rowNum, i, rows, t_width, t_height, atlas, 1);
 					Tiles[i]->addTile(temp);
 				}
 				
@@ -137,10 +124,11 @@ public:
 		}
 		else if (type == 2) {
 			//generate movers and set textures
-			for (int i = 0; i < cols; i+=mSpace) {
+			for (int i = 0; i < cols; i++) {
 				if (i % 2 == direction) {
-					Tile* temp = new mLog(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
-					switch (mType) {
+					Tile* temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					/*switch (mType) {
 					case 0:
 						temp->setTexture(atlas->getTileSet(2)->getTexture());
 						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
@@ -171,7 +159,7 @@ public:
 						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
 						Tiles[i]->addTile(temp);
 						break;
-					}
+					}*/
 					
 				}
 
@@ -184,7 +172,7 @@ public:
 	void genMovers() {
 
 		//clear old ones
-		for (int i = 0; i < cols; i+=mSpace) {
+		for (int i = 0; i < cols; i++) {
 			if (i % 2 == direction) {
 				Tiles[i]->removeTile();
 			}
@@ -194,10 +182,11 @@ public:
 		direction = !direction;
 
 		//make new ones
-		for (int i = 0; i < cols; i+=mSpace) {
+		for (int i = 0; i < cols; i++) {
 			if (i % 2 == direction) {
-				Tile* temp = new mLog(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
-				switch (mType) {
+				Tile* temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
+				Tiles[i]->addTile(temp);
+				/*switch (mType) {
 				case 0:
 					temp->setTexture(atlas->getTileSet(2)->getTexture());
 					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
@@ -228,7 +217,7 @@ public:
 					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
 					Tiles[i]->addTile(temp);
 					break;
-				}
+				}*/
 			}
 
 		}
@@ -241,11 +230,10 @@ public:
 
 			for (int i = 0; i < cols; i++) {
 				int type = rand() % 15;
-				//int chance = rand() % 10;
 
-				Tile* temp = new Bridge(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
-				temp->setTexture(atlas->getTileSet(2)->getTexture());
-				switch (type) {
+				Tile* temp = new Log(rowNum, i, rows, t_width, t_height, atlas);
+				Tiles[i]->addTile(temp);
+				/*switch (type) {
 				case 0:
 					temp->setTexRec(atlas->getTileSet(2)->getTile(8, 4));
 					Tiles[i]->addTile(temp);
@@ -270,7 +258,7 @@ public:
 					
 					break;
 				}
-				std::cout << "creating bridge" << std::endl;
+				std::cout << "creating bridge" << std::endl;*/
 				
 			}
 		}
@@ -285,9 +273,10 @@ public:
 				int type = rand() % 20;
 				//int chance = rand() % 10;
 
-				Tile* temp = new Obsticale(t_width * i, t_height * ((rows - 1) - rowNum), t_width, t_height);
-				temp->setTexture(atlas->getTileSet(2)->getTexture());
-				switch (type) {
+				Tile* temp = new RedMush(rowNum, i, rows, t_width, t_height, atlas);
+				Tiles[i]->addTile(temp);
+				
+				/*switch (type) {
 				case 0:
 					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 0));
 					Tiles[i]->addTile(temp);
@@ -304,7 +293,7 @@ public:
 
 					break;
 				}
-				std::cout << "creating bridge" << std::endl;
+				std::cout << "creating bridge" << std::endl;*/
 
 			}
 		}
@@ -341,7 +330,7 @@ public:
 	void increaseRow() {
 		rowNum --;
 		for (int i = 0; i < cols; i++) {
-			Tiles[i]->increaseRow();
+			Tiles[i]->decreaseRow();
 		}
 	}
 };

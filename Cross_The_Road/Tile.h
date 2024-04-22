@@ -4,7 +4,7 @@
 
 class Tile {
 protected:
-	//this containes postion.x postion.y and .color
+	//this contains postion.x postion.y and .color
 	sf::RectangleShape Data;
 
 	//if the tile is walkable by the player or not
@@ -17,20 +17,23 @@ protected:
 	bool mover;
 
 	//keep track of location and demensions
-	float x = 0;
-	float y = 0;
+	int row = 0;
+	int col = 0;
+	int totalRows = 0;
 	float width = 0;
 	float height = 0;
 
 public:
 	//constructor
-	Tile(float nX, float nY, float nW, float nH, bool isWalkable, bool isDeadly, bool isMover) {
-		this->x = nX;
-		this->y = nY;
+	Tile(int nRow, int nCol, int tRows, float nW, float nH, bool isWalkable, bool isDeadly, bool isMover, Atlas* atlas) {
+		this->row = nRow;
+		this->col = nCol;
+		this->totalRows = tRows;
 		this->width = nW;
 		this->height = nH;
 
-		this->Data.setPosition(x, y);
+		//t_width * i, t_height * ((rows - 1) - rowNum)
+		this->Data.setPosition(width*col, height * ((totalRows-1)-row));
 		this->Data.setSize(sf::Vector2f(width, height));
 		this->walkable = isWalkable;
 		this->deadly = isDeadly;
@@ -42,8 +45,8 @@ public:
 	virtual void draw(sf::RenderWindow* nWindow) = 0;
 
 	//setters
-	void setPosition(float x, float y) {
-		this->Data.setPosition(x, y);
+	void setPosition(int nRow, int nCol, float xOff, float yOff) {
+		this->Data.setPosition(width * (nCol - xOff), height * ((totalRows - 1) - nRow - yOff));
 	}
 	void setTexture(sf::Texture* nTexture) {
 		this->Data.setTexture(nTexture);
@@ -54,9 +57,9 @@ public:
 	void setScale(float x, float y) {
 		this->Data.setScale(sf::Vector2f(x, y));
 	}
-	void increaseRow() {
-		this->y += height;
-		this->Data.setPosition(this->x, this->y);
+	void decreaseRow() {
+		this->row -= 1;
+		this->Data.setPosition(width * col, height * ((totalRows - 1) - row));
 	}
 	
 	//getters

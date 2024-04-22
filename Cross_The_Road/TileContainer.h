@@ -40,9 +40,9 @@ public:
 		return Tiles.back()->isMoving();
 	}
 
-	void increaseRow() {
+	void decreaseRow() {
 		for (int i = 0; i < Tiles.size(); i++) {
-			Tiles[i]->increaseRow();
+			Tiles[i]->decreaseRow();
 		}
 	}
 

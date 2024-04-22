@@ -61,7 +61,7 @@ public:
 		//set tile size
 		tileSize = mGrid->getTileSize();
 
-		player = new Player(0, 0, tileSize.x, tileSize.y, location.y, location.x, gridSize.y, atlas);
+		player = new Player(location.y,location.x,gridSize.y,tileSize.x,tileSize.y,atlas);
 
 		std::cout << "start row:" << location.y << std::endl;
 		std::cout << "start col:" << location.x << std::endl;
