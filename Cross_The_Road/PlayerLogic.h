@@ -190,6 +190,5 @@ public:
 			scroll = 0;
 		}
 
-		player->draw(window);
 	}
 };

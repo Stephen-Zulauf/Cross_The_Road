@@ -86,6 +86,36 @@
     <ClInclude Include="TilesInclude.h">
       <Filter>Header Files\Tiles</Filter>
     </ClInclude>
+    <ClInclude Include="LgRock.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="SmRock.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="SmPad.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="LgPad.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="SmFlowerRed.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="SmFLowerYell.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="SmPot.h">
+      <Filter>Header Files\Tiles\Bridges</Filter>
+    </ClInclude>
+    <ClInclude Include="SmStump.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="LgStump.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="SunFlower.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">

@@ -20,6 +20,7 @@ private:
 	* row type
 	* 0 = water
 	* 1 = land
+	* 2 = mover
 	*/
 	int type = 0;
 
@@ -60,7 +61,7 @@ public:
 		genContainers();
 		genBase();
 		genBridges();
-		//genObsticals();
+		genObstacles();
 	}
 	Row(Row& copy) {
 
@@ -231,34 +232,47 @@ public:
 			for (int i = 0; i < cols; i++) {
 				int type = rand() % 15;
 
-				Tile* temp = new Log(rowNum, i, rows, t_width, t_height, atlas);
-				Tiles[i]->addTile(temp);
-				/*switch (type) {
+				Tile* temp;
+
+				switch (type) {
 				case 0:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(8, 4));
+					temp = new Log(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 1:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 4));
+					temp = new LgRock(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 2:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(6, 4));
+					temp = new SmRock(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 3:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 4));
+					temp = new SmPad(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 4:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+					temp = new LgPad(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
+				case 5:
+					temp = new SmFlowerRed(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					break;
+				case 6:
+					temp = new SmFlowerYell(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					break;
+				case 7:
+					temp = new SmPot(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					break;
+				
 				default:
 					
 					break;
 				}
-				std::cout << "creating bridge" << std::endl;*/
+				//std::cout << "creating bridge" << std::endl;
 				
 			}
 		}
@@ -266,34 +280,37 @@ public:
 	}
 
 	//generate obsticles (if land type)
-	void genObsticals() {
+	void genObstacles() {
 		if (type == 1) {
 
 			for (int i = 0; i < cols; i++) {
-				int type = rand() % 20;
-				//int chance = rand() % 10;
+				int type = rand() % 8;
 
-				Tile* temp = new RedMush(rowNum, i, rows, t_width, t_height, atlas);
-				Tiles[i]->addTile(temp);
-				
-				/*switch (type) {
+				Tile* temp;
+
+				switch (type) {
 				case 0:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 0));
+					temp = new RedMush(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 1:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(4, 2));
+					temp = new SmStump(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 2:
-					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 2));
+					temp = new LgStump(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
+				case 3:
+					temp = new Sunflower(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					break;
+
 				default:
 
 					break;
 				}
-				std::cout << "creating bridge" << std::endl;*/
+				//std::cout << "creating obstacles" << std::endl;
 
 			}
 		}

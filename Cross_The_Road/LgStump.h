@@ -3,12 +3,12 @@
 #include "SpriteAtlas.h"
 #include "Tile.h"
 
-class RedMush : public Tile {
+class LgStump : public Tile {
 private:
 
 
 public:
-	RedMush(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas)
+	LgStump(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas)
 		:Tile(nRow, nCol, tRows, nW, nH, false, false, false, atlas) {
 		//set fill color to green for testing
 		//Data.setFillColor(sf::Color::White);
@@ -16,7 +16,7 @@ public:
 
 		//set texture
 		this->setTexture(atlas->getTileSet(2)->getTexture());
-		this->setTexRec(atlas->getTileSet(2)->getTile(0, 6));
+		this->setTexRec(atlas->getTileSet(2)->getTile(2, 4));
 
 		updateLocation(nRow, nCol);
 

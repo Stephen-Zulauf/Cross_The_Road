@@ -39,14 +39,14 @@ public:
 		return &this->texture;
 	}
 
-	sf::IntRect getTile(int tRow, int tCol) {
+	sf::IntRect getTile(int tRow, int tCol, float wOffset = 0, float hOffset = 0) {
 		sf::IntRect temp;
 
-		temp.left = t_width * tRow;
-		temp.top = t_height * tCol;
+		temp.left = t_width * tCol;
+		temp.top = t_height * tRow;
 
-		temp.width = t_width;
-		temp.height = t_height;
+		temp.width = t_width + wOffset;
+		temp.height = t_height + hOffset;
 
 		return temp;
 

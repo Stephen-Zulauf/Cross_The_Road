@@ -27,19 +27,19 @@ public:
 			break;
 		case 1:
 			//middle-left
-			this->setTexRec(atlas->getTileSet(0)->getTile(1, 0));
+			this->setTexRec(atlas->getTileSet(0)->getTile(0, 1));
 			break;
 		case 2:
 			//middle-right
-			this->setTexRec(atlas->getTileSet(0)->getTile(2, 0));
+			this->setTexRec(atlas->getTileSet(0)->getTile(0, 2));
 			break;
 		case 3:
 			//right-end
-			this->setTexRec(atlas->getTileSet(0)->getTile(3, 0));
+			this->setTexRec(atlas->getTileSet(0)->getTile(0, 3));
 			break;
 		default:
 			//middle-left
-			this->setTexRec(atlas->getTileSet(0)->getTile(1, 0));
+			this->setTexRec(atlas->getTileSet(0)->getTile(0, 1));
 			break;
 		}
 

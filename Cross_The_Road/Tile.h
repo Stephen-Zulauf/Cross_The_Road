@@ -23,6 +23,9 @@ protected:
 	float width = 0;
 	float height = 0;
 
+	//tall size sprite
+	bool tall = false;
+
 public:
 	//constructor
 	Tile(int nRow, int nCol, int tRows, float nW, float nH, bool isWalkable, bool isDeadly, bool isMover, Atlas* atlas) {
@@ -56,6 +59,9 @@ public:
 	}
 	void setScale(float x, float y) {
 		this->Data.setScale(sf::Vector2f(x, y));
+	}
+	void setRotation(float degrees) {
+		this->Data.setRotation(degrees);
 	}
 	void decreaseRow() {
 		this->row -= 1;

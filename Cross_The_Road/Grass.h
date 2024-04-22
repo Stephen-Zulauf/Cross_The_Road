@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config.h"
 #include "SpriteAtlas.h"
 #include "Tile.h"
 
@@ -23,15 +22,15 @@ public:
 		switch (pos) {
 		case 0:
 			//left end
-			this->setTexRec(atlas->getTileSet(1)->getTile(0, 3));
+			this->setTexRec(atlas->getTileSet(1)->getTile(3, 0));
 			break;
 		case 1:
 			//middle
-			this->setTexRec(atlas->getTileSet(1)->getTile(1, 3));
+			this->setTexRec(atlas->getTileSet(1)->getTile(3, 1));
 			break;
 		case 2:
 			//right-end
-			this->setTexRec(atlas->getTileSet(1)->getTile(2, 3));
+			this->setTexRec(atlas->getTileSet(1)->getTile(3, 2));
 			break;
 		}
 

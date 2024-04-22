@@ -2,7 +2,6 @@
 
 //class for moving log tile.
 
-#include "config.h"
 #include "SpriteAtlas.h"
 #include "Tile.h"
 
@@ -19,7 +18,7 @@ public:
 	
 		//set texture
 		this->setTexture(atlas->getTileSet(2)->getTexture());
-		this->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+		this->setTexRec(atlas->getTileSet(2)->getTile(2, 5));
 
 	}
 

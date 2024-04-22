@@ -62,6 +62,7 @@ public:
 		this->setTexRec(atlas->getTileSet(3)->getTile(direction, cycle));
 	}
 
+	//this is needed to compensate for the scaling on the sprite
 	void updateLocation(int row, int col) {
 
 		//this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));

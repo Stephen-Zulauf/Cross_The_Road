@@ -136,7 +136,12 @@ public:
 	void drawGrid() {
 
 		//draw rows
-		for (int i = 0; i < Rows.size(); i++) {
+		/*for (int i = 0; i < Rows.size(); i++) {
+
+			Rows[i]->draw(window);
+		}*/
+
+		for (int i = Rows.size()-1; i >= 0; i--) {
 
 			Rows[i]->draw(window);
 		}
