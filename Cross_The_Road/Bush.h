@@ -3,12 +3,12 @@
 #include "SpriteAtlas.h"
 #include "Tile.h"
 
-class SmStump : public Tile {
+class Bush : public Tile {
 private:
 
 
 public:
-	SmStump(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas)
+	Bush(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas)
 		:Tile(nRow, nCol, tRows, nW, nH, false, false, false, atlas) {
 		//set fill color to green for testing
 		//Data.setFillColor(sf::Color::White);
@@ -16,7 +16,7 @@ public:
 
 		//set texture
 		this->setTexture(atlas->getTileSet(2)->getTexture());
-		this->setTexRec(atlas->getTileSet(2)->getTile(2, 3));
+		this->setTexRec(atlas->getTileSet(2)->getTile(3, 0));
 
 		updateLocation(nRow, nCol);
 

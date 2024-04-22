@@ -57,6 +57,9 @@ public:
 	void setTexRec(sf::IntRect nRect) {
 		this->Data.setTextureRect(nRect);
 	}
+	void setSize(int rows, int cols) {
+		this->Data.setSize(sf::Vector2f(width*cols, height*rows));
+	}
 	void setScale(float x, float y) {
 		this->Data.setScale(sf::Vector2f(x, y));
 	}

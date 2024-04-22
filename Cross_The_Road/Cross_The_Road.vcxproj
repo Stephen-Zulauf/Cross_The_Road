@@ -136,6 +136,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="mApple.h" />
+    <ClInclude Include="Bush.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Grid.h" />
@@ -144,6 +146,9 @@
     <ClInclude Include="LgStump.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="mLog.h" />
+    <ClInclude Include="mSmFlowerRed.h" />
+    <ClInclude Include="mSmFlowerYell.h" />
+    <ClInclude Include="mSmPot.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerLogic.h" />
     <ClInclude Include="Row.h" />
@@ -161,6 +166,8 @@
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="RedMush.h" />
     <ClInclude Include="TilesInclude.h" />
+    <ClInclude Include="TreeL.h" />
+    <ClInclude Include="TreeR.h" />
     <ClInclude Include="Water.h" />
   </ItemGroup>
   <ItemGroup>

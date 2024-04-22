@@ -27,7 +27,7 @@ private:
 	//track direction if mover
 	int direction = 0;
 	//move tile type
-	int mType = 0;
+	int mType = rand() % 8;
 	//mover spacing
 	int mSpace = 0;
 
@@ -124,43 +124,37 @@ public:
 			}
 		}
 		else if (type == 2) {
+			Tile* temp;
 			//generate movers and set textures
 			for (int i = 0; i < cols; i++) {
 				if (i % 2 == direction) {
-					Tile* temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
-					Tiles[i]->addTile(temp);
-					/*switch (mType) {
+					switch (mType) {
 					case 0:
-						temp->setTexture(atlas->getTileSet(2)->getTexture());
-						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+						temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
 						break;
 					case 1:
-						temp->setTexture(atlas->getTileSet(2)->getTexture());
-						temp->setTexRec(atlas->getTileSet(2)->getTile(7, 3));
+						temp = new mApple(rowNum, i, rows, t_width, t_height, atlas);
+						Tiles[i]->addTile(temp);
+						break;
+					case 2:
+						temp = new mSmFlowerRed(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
 						break;
 					case 3:
-						temp->setTexture(atlas->getTileSet(2)->getTexture());
-						temp->setTexRec(atlas->getTileSet(2)->getTile(6, 2));
+						temp = new mSmFlowerYell(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
 						break;
 					case 4:
-						temp->setTexture(atlas->getTileSet(2)->getTexture());
-						temp->setTexRec(atlas->getTileSet(2)->getTile(7, 4));
+						temp = new mSmPot(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
 						break;
-					case 5:
-						temp->setTexture(atlas->getTileSet(4)->getTexture());
-						temp->setTexRec(atlas->getTileSet(4)->getTile(4, 0));
-						Tiles[i]->addTile(temp);
-						break;
+					
 					default:
-						temp->setTexture(atlas->getTileSet(2)->getTexture());
-						temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+						temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
 						break;
-					}*/
+					}
 					
 				}
 
@@ -184,41 +178,36 @@ public:
 
 		//make new ones
 		for (int i = 0; i < cols; i++) {
+			Tile* temp;
 			if (i % 2 == direction) {
-				Tile* temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
-				Tiles[i]->addTile(temp);
-				/*switch (mType) {
+				switch (mType) {
 				case 0:
-					temp->setTexture(atlas->getTileSet(2)->getTexture());
-					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+					temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 1:
-					temp->setTexture(atlas->getTileSet(2)->getTexture());
-					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 3));
+					temp = new mApple(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					break;
+				case 2:
+					temp = new mSmFlowerRed(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 3:
-					temp->setTexture(atlas->getTileSet(2)->getTexture());
-					temp->setTexRec(atlas->getTileSet(2)->getTile(6, 2));
+					temp = new mSmFlowerYell(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
 				case 4:
-					temp->setTexture(atlas->getTileSet(2)->getTexture());
-					temp->setTexRec(atlas->getTileSet(2)->getTile(7, 4));
+					temp = new mSmPot(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
-				case 5:
-					temp->setTexture(atlas->getTileSet(4)->getTexture());
-					temp->setTexRec(atlas->getTileSet(4)->getTile(4, 0));
-					Tiles[i]->addTile(temp);
-					break;
+
 				default:
-					temp->setTexture(atlas->getTileSet(2)->getTexture());
-					temp->setTexRec(atlas->getTileSet(2)->getTile(5, 2));
+					temp = new mLog(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
 					break;
-				}*/
+				}
+
 			}
 
 		}
@@ -281,6 +270,8 @@ public:
 
 	//generate obsticles (if land type)
 	void genObstacles() {
+		int lastOb = 0;
+
 		if (type == 1) {
 
 			for (int i = 0; i < cols; i++) {
@@ -304,6 +295,24 @@ public:
 				case 3:
 					temp = new Sunflower(rowNum, i, rows, t_width, t_height, atlas);
 					Tiles[i]->addTile(temp);
+					break;
+				case 4:
+					temp = new Bush(rowNum, i, rows, t_width, t_height, atlas);
+					Tiles[i]->addTile(temp);
+					break;
+				case 5:
+
+					if (i + 1 < cols) {
+						//make left and right tree
+						temp = new TreeL(rowNum, i, rows, t_width, t_height, atlas);
+						Tiles[i]->addTile(temp);
+
+						i++;
+
+						temp = new TreeR(rowNum, i, rows, t_width, t_height, atlas);
+						Tiles[i]->addTile(temp);
+					}
+
 					break;
 
 				default:

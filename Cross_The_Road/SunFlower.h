@@ -13,11 +13,12 @@ public:
 		//set fill color to green for testing
 		//Data.setFillColor(sf::Color::White);
 
+		//set larger size
+		this->setSize(2, 1);
 
 		//set texture
 		this->setTexture(atlas->getTileSet(2)->getTexture());
-		//this->setTexRec(atlas->getTileSet(2)->getTile(2, 8, 0, 10));
-		this->setTexRec(atlas->getTileSet(2)->getTile(2, 8, -1, 12));
+		this->setTexRec(atlas->getTileSet(2)->getTile(2, 8, 2));
 
 		updateLocation(nRow, nCol);
 	}
@@ -25,10 +26,8 @@ public:
 	//this is needed to compensate for the scaling on the sprite
 	void updateLocation(int row, int col) {
 
-		//this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));
-		//(old offset reference)
 		//set postion
-		this->setPosition(row, col, 0, .4);
+		this->setPosition(row, col, 0, 1.2);
 
 	}
 

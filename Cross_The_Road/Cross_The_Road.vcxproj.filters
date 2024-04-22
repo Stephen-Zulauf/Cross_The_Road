@@ -116,6 +116,27 @@
     <ClInclude Include="SunFlower.h">
       <Filter>Header Files\Tiles\Obstacles</Filter>
     </ClInclude>
+    <ClInclude Include="Bush.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeL.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeR.h">
+      <Filter>Header Files\Tiles\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="mApple.h">
+      <Filter>Header Files\Tiles\Movers</Filter>
+    </ClInclude>
+    <ClInclude Include="mSmFlowerRed.h">
+      <Filter>Header Files\Tiles\Movers</Filter>
+    </ClInclude>
+    <ClInclude Include="mSmFlowerYell.h">
+      <Filter>Header Files\Tiles\Movers</Filter>
+    </ClInclude>
+    <ClInclude Include="mSmPot.h">
+      <Filter>Header Files\Tiles\Movers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt">
