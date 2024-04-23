@@ -3,41 +3,39 @@
 
 int main()
 {
-    //seed random number gen
+    /*seed random number gen*/
     srand(time(NULL));
 
-    //globals for window size
+    /*globals for window size*/
     float w_width = 800;
     float w_height = 600;
 
-    //create main window 
+    /*create main window */
     sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The River");
-    //set mouse cursor
-    w_Main.setMouseCursorVisible(false);
+    w_Main.setMouseCursorVisible(false); //set mouse cursor
 
-    //create sprite atlas
+    /*create sprite atlas*/
     Atlas atlas;
 
-    //create instance of grid
-    //rows, columns, window width/height, handle to window instance
+    /*create instance of grid*/
+    //rows, columns, width, height, window, sprites
     Grid mGrid(10, 15, w_width, w_height, &w_Main, &atlas);
 
-    //create player logic grid
+    /*create player logic grid*/
     PlayerLogic logic(&mGrid, &atlas, &w_Main);
 
-    //keep track of elapsed time
+    /*keep track of elapsed time*/
     sf::Clock clock;
-    //cap framerate
-    w_Main.setFramerateLimit(60);
+    w_Main.setFramerateLimit(60); //cap framerate
 
-    //create menu
+    /*create menu*/
     Menu mMenu(w_width, w_height, &w_Main);
     bool mainMenu = true;
 
-    //create timer
+    /*create timer*/
     Timers timer(&clock, &mGrid, &logic, &mMenu);
 
-    //main event loop
+    /*main event loop*/
     while (w_Main.isOpen())
     {
         //check menu
@@ -45,12 +43,12 @@ int main()
             w_Main.close();
         }
 
+        //Poll for events
+        sf::Event event;
+
         if (mMenu.getDisplay() == false) {
             //update timer
             timer.updateAll();
-
-            //Poll for events
-            sf::Event event;
 
             while (w_Main.pollEvent(event))
             {
@@ -94,7 +92,18 @@ int main()
 
             }
         }
+        else {
+            while (w_Main.pollEvent(event))
+            {
+                switch (event.type) {
+                case sf::Event::Closed:
+                    w_Main.close();
+                    break;
+                }
+            }
+        }
         
+
         //clear
         w_Main.clear();
 

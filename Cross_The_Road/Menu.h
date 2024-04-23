@@ -16,6 +16,7 @@ private:
 	sf::RectangleShape background;
 	sf::RectangleShape menuBackground;
 	sf::RectangleShape cursor;
+	sf::RectangleShape scoreBox;
 
 	//textures
 	sf::Texture BGTexture; // just backgrounds
@@ -35,6 +36,9 @@ private:
 	//bools to keep track of quit and start
 	bool display = true;
 	bool quit = false;
+
+	//keep track of score
+	int score = 13928;
 
 
 public:
@@ -70,7 +74,12 @@ public:
 		}
 		menuBackground.setTexture(&BGTexture);
 		menuBackground.setTextureRect(sf::IntRect(128, 0, 128, 144));
-		//menuBackground.setScale(sf::Vector2f(1, 1));
+		
+		//set scorebox
+		scoreBox.setSize(sf::Vector2f(w_width/4, w_height/16));
+		scoreBox.setPosition(sf::Vector2f(w_width - w_width / 4, 0));
+		scoreBox.setTexture(&BGTexture);
+		scoreBox.setTextureRect(sf::IntRect(128, 0, 128, 144));
 
 
 		//load bold font
@@ -165,6 +174,16 @@ public:
 		}
 		else {
 			//draw scorebox
+			window->draw(scoreBox);
+
+			//start
+			text.setFont(regFont);
+			text.setString(std::to_string(score));
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color(150, 109, 71));
+			text.setPosition(sf::Vector2f(w_width - (w_width / 8)-50, 0));
+			window->draw(text);
+
 		}
 		
 	}
@@ -177,6 +196,10 @@ public:
 
 	void setDisplay(bool isDisplayed) {
 		this->display = isDisplayed;
+	}
+
+	void updateScore(int nScore) {
+		this->score = nScore;
 	}
 
 	//getters

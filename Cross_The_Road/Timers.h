@@ -32,6 +32,9 @@ private:
 	bool dead = false;
 	bool updateEvent = false;
 	bool rowRemoveEvent = false;
+
+	//score
+	int score = 0;
 	
 
 public:
@@ -57,6 +60,8 @@ public:
 			ellapsed = 0;
 			update++;
 			rowRemove++;
+			score++;
+			mainMenu->updateScore(score);
 			clock->restart();
 		}
 		
@@ -84,6 +89,7 @@ public:
 
 		//reset if player died
 		if (dead == true) {
+			score = 0;
 			mainMenu->reset();
 			reset();
 			dead = false;
