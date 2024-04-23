@@ -165,5 +165,22 @@
     <Image Include="Water.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="MenuBG.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UiStuff.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Cursor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Silkscreen-Bold.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="Silkscreen-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

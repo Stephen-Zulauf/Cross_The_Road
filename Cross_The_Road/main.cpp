@@ -1,6 +1,5 @@
 #include "config.h"
 #include "Timers.h"
-#include "Menu.h"
 
 int main()
 {
@@ -13,6 +12,8 @@ int main()
 
     //create main window 
     sf::RenderWindow w_Main(sf::VideoMode(w_width, w_height), "Cross The River");
+    //set mouse cursor
+    w_Main.setMouseCursorVisible(false);
 
     //create sprite atlas
     Atlas atlas;
@@ -29,21 +30,24 @@ int main()
     //cap framerate
     w_Main.setFramerateLimit(60);
 
-    //create timer
-    Timers timer(&clock, &mGrid, &logic);
-
     //create menu
     Menu mMenu(w_width, w_height, &w_Main);
-    bool menu = false;
 
-    
+    //create timer
+    Timers timer(&clock, &mGrid, &logic, &mMenu);
+
+
     //main event loop
     while (w_Main.isOpen())
     {
         
-
         //update timer
         timer.updateAll();
+
+        //check menu
+        if (mMenu.getQuit()) {
+            w_Main.close();
+        }
 
         //Poll for events
         sf::Event event;
@@ -100,9 +104,7 @@ int main()
         logic.getPlayer()->draw(&w_Main);
 
         //draw menu
-        if (menu == true) {
-            mMenu.draw();
-        }
+        mMenu.draw();
 
         //show window
         w_Main.display();

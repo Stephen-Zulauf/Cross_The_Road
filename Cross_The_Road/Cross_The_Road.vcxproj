@@ -178,9 +178,16 @@
   <ItemGroup>
     <Image Include="Bridge.png" />
     <Image Include="Character.png" />
+    <Image Include="Cursor.png" />
     <Image Include="furn.png" />
     <Image Include="Grass.png" />
+    <Image Include="MenuBG.png" />
+    <Image Include="UiStuff.png" />
     <Image Include="Water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Silkscreen-Bold.ttf" />
+    <Font Include="Silkscreen-Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
