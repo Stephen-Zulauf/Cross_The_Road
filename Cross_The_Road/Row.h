@@ -79,6 +79,12 @@ public:
 		}
 	}
 
+	void updateTiles(float offset) {
+		for (int i = 0; i < Tiles.size(); i++) {
+			Tiles[i]->updateTiles(offset);
+		}
+	}
+
 	void update() {
 
 		//update movers
@@ -219,7 +225,7 @@ public:
 		if (type == 0) {
 
 			for (int i = 0; i < cols; i++) {
-				int type = rand() % 15;
+				int type = rand() % 12;
 
 				Tile* temp;
 
@@ -275,7 +281,7 @@ public:
 		if (type == 1) {
 
 			for (int i = 0; i < cols; i++) {
-				int type = rand() % 8;
+				int type = rand() % 20;
 
 				Tile* temp;
 
@@ -353,7 +359,7 @@ public:
 		}
 	}
 
-	void increaseRow() {
+	void decreaseRow() {
 		rowNum --;
 		for (int i = 0; i < cols; i++) {
 			Tiles[i]->decreaseRow();

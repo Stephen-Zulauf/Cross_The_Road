@@ -166,6 +166,7 @@
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="RedMush.h" />
     <ClInclude Include="TilesInclude.h" />
+    <ClInclude Include="Timers.h" />
     <ClInclude Include="TreeL.h" />
     <ClInclude Include="TreeR.h" />
     <ClInclude Include="Water.h" />

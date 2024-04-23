@@ -83,7 +83,9 @@ public:
 	//logic loop
 	//returns if dead to check in main and reset grid
 	//returns true if player died
-	void loop(bool isUpdate, bool removal, bool* dead) {
+	void loop(bool isUpdate, bool removal, bool* dead, float offset) {
+
+		//offset += (this->tileSize.x / 60) / 30;
 
 		//move with the grid
 		if (isUpdate) {
@@ -91,8 +93,14 @@ public:
 			if (mover) {
 				//change location
 				location.x -= 1;
-				player->updateLocation(location.y, location.x);
+				
 			}
+
+		}
+
+		//smooth movement on movers
+		if (mover) {
+			player->setPosition(location.y, location.x, offset +.5, .8);
 		}
 
 		//if row removed

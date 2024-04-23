@@ -1,5 +1,5 @@
 #include "config.h"
-#include "PlayerLogic.h"
+#include "Timers.h"
 
 int main()
 {
@@ -28,10 +28,8 @@ int main()
     //cap framerate
     w_Main.setFramerateLimit(60);
 
-    //master update from clock
-    bool update = false;
-    bool removeRow = false;
-    int scroll = 0;
+    //create timer
+    Timers timer(&clock, &mGrid, &logic);
 
     //track if player died
     bool dead = false;
@@ -41,30 +39,10 @@ int main()
     {
         //reset clocks if player ded
         if (dead) {
-            update = false;
-            removeRow = false;
-            scroll = 0;
-            dead = false;
+            timer.reset();
         }
-
-        //Compute Frame-Rate
-        float currentTime = clock.getElapsedTime().asSeconds();
-        if (currentTime >= .5) {
-            update = true;
-            scroll++;
-            clock.restart();
-        }
-        else {
-            update = false;
-        }
-
-        if (scroll > 20) {
-            removeRow = true;
-            scroll = 0;
-        }
-        else {
-            removeRow = false;
-        }
+        //update timer
+        timer.updateAll();
 
         //Poll for events
         sf::Event event;
@@ -79,15 +57,14 @@ int main()
                 if (event.key.scancode == sf::Keyboard::W) {
 
                     //set player texture
-                    logic.getPlayer()->updateTexture(0, 1);
+                    logic.getPlayer()->updateTexture(1, 0);
                     //move player up
                     logic.moveRequest(0);
-                    scroll +=2;
                 }
                 else if (event.key.scancode == sf::Keyboard::A) {
 
                     //set player texture
-                    logic.getPlayer()->updateTexture(0, 2);
+                    logic.getPlayer()->updateTexture(2, 0);
                     //move player left
                     logic.moveRequest(1);
                     
@@ -103,7 +80,7 @@ int main()
                 else if (event.key.scancode == sf::Keyboard::D) {
 
                     //set player texture
-                    logic.getPlayer()->updateTexture(0, 3);
+                    logic.getPlayer()->updateTexture(3, 0);
                     //move player right
                     logic.moveRequest(3);
                 }
@@ -115,11 +92,11 @@ int main()
         //clear
         w_Main.clear();
 
-        //update moving grid parts
-        mGrid.update(update, removeRow);
+        ////update moving grid parts
+        //mGrid.update(timer.getUpdateEvent(), timer.getRowRemovalEvent());
 
-        //player logic
-        logic.loop(update, removeRow, &dead);
+        ////player logic
+        //logic.loop(timer.getUpdateEvent(), timer.getRowRemovalEvent(), &dead);
 
         //draw grid here
         mGrid.drawGrid();

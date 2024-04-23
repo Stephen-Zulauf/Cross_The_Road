@@ -155,7 +155,8 @@ public:
 	}
 
 	//update moving tiles etc.
-	void update(bool isUpdate, bool removal) {
+	void update(bool isUpdate, bool removal, float offset) {
+
 
 		//if player died reset grid
 		if (this->dead) {
@@ -169,6 +170,11 @@ public:
 			this->dead = false;
 
 			scroll = 0;
+		}
+
+		//update tile animations
+		for (int i = 0; i < Rows.size(); i++) {
+			Rows[i]->updateTiles(offset);
 		}
 
 		//remove row from main clock
@@ -195,7 +201,7 @@ public:
 
 
 			for (int i = 0; i < Rows.size(); i++) {
-				Rows[i]->increaseRow();
+				Rows[i]->decreaseRow();
 			}
 
 			delete Rows.front();

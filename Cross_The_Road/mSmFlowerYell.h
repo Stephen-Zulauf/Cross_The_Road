@@ -5,7 +5,7 @@
 
 class mSmFlowerYell : public Tile {
 private:
-
+	float offset = 0;
 
 public:
 	mSmFlowerYell(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas)
@@ -23,6 +23,12 @@ public:
 		this->setRotation(randt);
 
 	}
+
+	//update to move sprite over
+	void update(float offset) override {
+		this->setPosition(this->row, this->col, offset, 0);
+	}
+
 
 	//draw to window
 	void draw(sf::RenderWindow* nWindow) override {

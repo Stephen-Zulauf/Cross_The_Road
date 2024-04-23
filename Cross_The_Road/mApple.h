@@ -5,7 +5,7 @@
 
 class mApple : public Tile {
 private:
-
+	float offset = 0;
 
 public:
 	mApple(int nRow, int nCol, int tRows, float nW, float nH, Atlas* atlas)
@@ -22,6 +22,11 @@ public:
 		int randt = rand() % 20;
 		this->setRotation(randt);
 
+	}
+
+	//update to move sprite over
+	void update(float offset) override {
+		this->setPosition(this->row, this->col, offset, 0);
 	}
 
 	//draw to window

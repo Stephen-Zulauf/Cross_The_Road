@@ -47,6 +47,11 @@ public:
 	//draw to window
 	virtual void draw(sf::RenderWindow* nWindow) = 0;
 
+	//update sprites etc
+	virtual void update(float offset) {
+		
+	}
+
 	//setters
 	void setPosition(int nRow, int nCol, float xOff, float yOff) {
 		this->Data.setPosition(width * (nCol - xOff), height * ((totalRows - 1) - nRow - yOff));

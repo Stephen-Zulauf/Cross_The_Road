@@ -46,6 +46,12 @@ public:
 		}
 	}
 
+	void updateTiles(float offset) {
+		for (int i = 0; i < Tiles.size(); i++) {
+			Tiles[i]->update(offset);
+		}
+	}
+
 	void drawTiles(sf::RenderWindow* window) {
 		for (int i = 0; i < Tiles.size(); i++) {
 			Tiles[i]->draw(window);
