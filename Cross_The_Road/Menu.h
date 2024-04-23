@@ -33,9 +33,8 @@ private:
 	sf::Vector2i mPostion;
 
 	//bools to keep track of quit and start
-	bool start = false;
+	bool display = true;
 	bool quit = false;
-	bool main = true;
 
 
 public:
@@ -89,7 +88,7 @@ public:
 
 	void draw() {
 
-		if (start == false) {
+		if (display == true) {
 			//draw elements
 			window->draw(background);
 			window->draw(menuBackground);
@@ -151,7 +150,7 @@ public:
 			//check for mouse click
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				if (mPostion.x > 320 && mPostion.x < 420 && mPostion.y > 200 && mPostion.y < 250) {
-					start = true;
+					display = false;
 					std::cout << "start" << std::endl;
 				}
 				else if (mPostion.x > 320 && mPostion.x < 420 && mPostion.y > 250 && mPostion.y < 300) {
@@ -172,18 +171,17 @@ public:
 
 	//setters
 	void reset() {
-		this->main = true;
-		this->start = false;
+		this->display = true;
 		this->quit = false;
 	}
 
-	void setStart(bool nStart) {
-		this->start = nStart;
+	void setDisplay(bool isDisplayed) {
+		this->display = isDisplayed;
 	}
 
 	//getters
-	bool getStart() {
-		return this->start;
+	bool getDisplay() {
+		return this->display;
 	}
 	bool getQuit() {
 		return this->quit;

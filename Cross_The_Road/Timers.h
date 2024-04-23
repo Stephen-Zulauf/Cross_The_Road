@@ -60,7 +60,6 @@ public:
 			clock->restart();
 		}
 		
-
 		//set update event
 		if (update >= 1) {
 			updateEvent = true;
@@ -75,14 +74,15 @@ public:
 			rowRemove = 0;
 		}
 
-		//update logic and grid
+		//update logic, grid, menu
 		grid->update(updateEvent, rowRemoveEvent, xOffset);
 		logic->loop(updateEvent, rowRemoveEvent, &dead, xOffset);
 
+		//reset timers
 		updateEvent = false;
 		rowRemoveEvent = false;
 
-		//reset id player died
+		//reset if player died
 		if (dead == true) {
 			mainMenu->reset();
 			reset();

@@ -32,68 +32,69 @@ int main()
 
     //create menu
     Menu mMenu(w_width, w_height, &w_Main);
+    bool mainMenu = true;
 
     //create timer
     Timers timer(&clock, &mGrid, &logic, &mMenu);
 
-
     //main event loop
     while (w_Main.isOpen())
     {
-        
-        //update timer
-        timer.updateAll();
-
         //check menu
         if (mMenu.getQuit()) {
             w_Main.close();
         }
 
-        //Poll for events
-        sf::Event event;
-      
-        while (w_Main.pollEvent(event))
-        {
-            switch (event.type) {
-            case sf::Event::Closed:
-                w_Main.close();
-                break;
-            case sf::Event::KeyPressed:
-                if (event.key.scancode == sf::Keyboard::W) {
+        if (mMenu.getDisplay() == false) {
+            //update timer
+            timer.updateAll();
 
-                    //set player texture
-                    logic.getPlayer()->updateTexture(1, 0);
-                    //move player up
-                    logic.moveRequest(0);
-                }
-                else if (event.key.scancode == sf::Keyboard::A) {
+            //Poll for events
+            sf::Event event;
 
-                    //set player texture
-                    logic.getPlayer()->updateTexture(2, 0);
-                    //move player left
-                    logic.moveRequest(1);
-                    
-                }
-                else if (event.key.scancode == sf::Keyboard::S) {
+            while (w_Main.pollEvent(event))
+            {
+                switch (event.type) {
+                case sf::Event::Closed:
+                    w_Main.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    if (event.key.scancode == sf::Keyboard::W) {
 
-                    //set player texture
-                    logic.getPlayer()->updateTexture(0, 0);
-                    //move player down
-                    logic.moveRequest(2);
-                    
-                }
-                else if (event.key.scancode == sf::Keyboard::D) {
+                        //set player texture
+                        logic.getPlayer()->updateTexture(1, 0);
+                        //move player up
+                        logic.moveRequest(0);
+                    }
+                    else if (event.key.scancode == sf::Keyboard::A) {
 
-                    //set player texture
-                    logic.getPlayer()->updateTexture(3, 0);
-                    //move player right
-                    logic.moveRequest(3);
+                        //set player texture
+                        logic.getPlayer()->updateTexture(2, 0);
+                        //move player left
+                        logic.moveRequest(1);
+
+                    }
+                    else if (event.key.scancode == sf::Keyboard::S) {
+
+                        //set player texture
+                        logic.getPlayer()->updateTexture(0, 0);
+                        //move player down
+                        logic.moveRequest(2);
+
+                    }
+                    else if (event.key.scancode == sf::Keyboard::D) {
+
+                        //set player texture
+                        logic.getPlayer()->updateTexture(3, 0);
+                        //move player right
+                        logic.moveRequest(3);
+                    }
+                    break;
                 }
-                break;
+
             }
-           
         }
-
+        
         //clear
         w_Main.clear();
 
