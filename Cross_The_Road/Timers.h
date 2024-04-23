@@ -1,6 +1,7 @@
 #pragma once
 #include "config.h"
 #include "PlayerLogic.h"
+#include "Menu.h"
 
 class Timers {
 private:
@@ -11,6 +12,9 @@ private:
 	Grid* grid;
 	//logic refernce to update
 	PlayerLogic* logic;
+	//reference to main menu
+	Menu* mainMenu;
+
 
 	//target run speed
 	float target = 1;
@@ -32,10 +36,11 @@ private:
 
 public:
 	
-	Timers(sf::Clock* nClock, Grid* nGrid, PlayerLogic* nLogic) {
+	Timers(sf::Clock* nClock, Grid* nGrid, PlayerLogic* nLogic, Menu* nMenu) {
 		clock = nClock;
 		grid = nGrid;
 		logic = nLogic;
+		mainMenu = nMenu;
 	}
 
 	void updateAll() {
@@ -79,9 +84,11 @@ public:
 
 		//reset id player died
 		if (dead == true) {
+			mainMenu->reset();
 			reset();
 			dead = false;
 		}
+
 	}
 
 	//getters
