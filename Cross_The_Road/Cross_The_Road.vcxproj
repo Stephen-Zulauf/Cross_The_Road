@@ -145,6 +145,7 @@
     <ClInclude Include="LgRock.h" />
     <ClInclude Include="LgStump.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="mLog.h" />
     <ClInclude Include="mSmFlowerRed.h" />
     <ClInclude Include="mSmFlowerYell.h" />

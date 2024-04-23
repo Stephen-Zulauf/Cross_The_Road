@@ -19,8 +19,10 @@ private:
 	float ellapsed = 0;
 	float update = 0;
 	float rowRemove = 0;
-	float Offset = 0;
-	float offsetIncrement = 0;
+	float xOffset = 0;
+	float yOffset = 0;
+	float xOffsetIncrement = 0;
+	float yOffsetIncrement = 0;
 
 	//bools to see if event happens
 	bool dead = false;
@@ -40,8 +42,10 @@ public:
 		ellapsed = clock->getElapsedTime().asSeconds();
 		//std::cout << ellapsed << std::endl;
 
-		offsetIncrement =  (1/(grid->getTileSize().x+10));
-		Offset += offsetIncrement;
+		xOffsetIncrement =  (1/(grid->getTileSize().x))-.002;
+		yOffsetIncrement =  (1/(grid->getTileSize().y));
+		xOffset += xOffsetIncrement;
+		yOffset += yOffsetIncrement;
 
 		//update timers
 		if (ellapsed >= target) {
@@ -56,7 +60,8 @@ public:
 		if (update >= 1) {
 			updateEvent = true;
 			update = 0;
-			Offset = 0;
+			xOffset = 0;
+			yOffset = 0;
 		}
 
 		//set row removal
@@ -66,8 +71,8 @@ public:
 		}
 
 		//update logic and grid
-		grid->update(updateEvent, rowRemoveEvent, Offset);
-		logic->loop(updateEvent, rowRemoveEvent, &dead, Offset);
+		grid->update(updateEvent, rowRemoveEvent, xOffset);
+		logic->loop(updateEvent, rowRemoveEvent, &dead, xOffset);
 
 		updateEvent = false;
 		rowRemoveEvent = false;
@@ -83,7 +88,7 @@ public:
 
 	//get offset for drawing
 	float getOffset() {
-		return this->Offset;
+		return this->xOffset;
 	}
 
 	//setters
@@ -94,7 +99,8 @@ public:
 		ellapsed = 0;
 		update = 0;
 		rowRemove = 0;
-		Offset = 0;
+		xOffset = 0;
+		yOffset = 0;
 
 		//bools to see if event happens
 		updateEvent = false;

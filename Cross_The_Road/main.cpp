@@ -1,5 +1,6 @@
 #include "config.h"
 #include "Timers.h"
+#include "Menu.h"
 
 int main()
 {
@@ -31,16 +32,16 @@ int main()
     //create timer
     Timers timer(&clock, &mGrid, &logic);
 
-    //track if player died
-    bool dead = false;
+    //create menu
+    Menu mMenu(w_width, w_height, &w_Main);
+    bool menu = false;
+
     
     //main event loop
     while (w_Main.isOpen())
     {
-        //reset clocks if player ded
-        if (dead) {
-            timer.reset();
-        }
+        
+
         //update timer
         timer.updateAll();
 
@@ -92,17 +93,16 @@ int main()
         //clear
         w_Main.clear();
 
-        ////update moving grid parts
-        //mGrid.update(timer.getUpdateEvent(), timer.getRowRemovalEvent());
-
-        ////player logic
-        //logic.loop(timer.getUpdateEvent(), timer.getRowRemovalEvent(), &dead);
-
         //draw grid here
         mGrid.drawGrid();
 
         //draw player on top
         logic.getPlayer()->draw(&w_Main);
+
+        //draw menu
+        if (menu == true) {
+            mMenu.draw();
+        }
 
         //show window
         w_Main.display();
