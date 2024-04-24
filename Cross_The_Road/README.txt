@@ -7,7 +7,7 @@
 ___________________________________________________________________________
 
 Authors: 
-	'Big Mack' Mckenzie
+	'Big Mack' Mackenzi Stahl
 	Stephen Zulauf
 Github:
 	https://github.com/Stephen-Zulauf/Cross_The_Road
