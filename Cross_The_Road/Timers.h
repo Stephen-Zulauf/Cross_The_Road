@@ -74,7 +74,7 @@ public:
 		}
 
 		//set row removal
-		if (rowRemove >= 15) {
+		if (rowRemove >= 5) {
 			rowRemoveEvent = true;
 			rowRemove = 0;
 		}
