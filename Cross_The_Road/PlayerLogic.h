@@ -83,7 +83,7 @@ public:
 	//logic loop
 	//returns if dead to check in main and reset grid
 	//returns true if player died
-	void loop(bool isUpdate, bool removal, bool* dead, float offset) {
+	void loop(bool isUpdate, bool removal, bool* dead, float xOffset, float yOffset) {
 
 		//offset += (this->tileSize.x / 60) / 30;
 
@@ -98,16 +98,21 @@ public:
 
 		}
 
+		
+
 		//smooth movement on movers
 		if (mover) {
-			player->setPosition(location.y, location.x, offset +.5, .8);
+			player->setPosition(location.y, location.x, xOffset + .5, yOffset +.8);
+		}
+		else {
+			player->setPosition(location.y, location.x, .5, yOffset + .8);
 		}
 
 		//if row removed
 		if (removal) {
 			//change location
 			location.y -= 1;
-			player->updateLocation(location.y, location.x);
+			player->updateLocation(location.y, location.x,0,yOffset);
 		}
 
 		//check if dead
@@ -123,7 +128,7 @@ public:
 					if (mGrid->checkWalkable(location.y + 1, location.x)) {
 						//change location
 						location.y += 1;
-						player->updateLocation(location.y,location.x);
+						player->updateLocation(location.y,location.x, 0, yOffset);
 					}
 					
 					//reset move request
@@ -136,7 +141,7 @@ public:
 					if (mGrid->checkWalkable(location.y, location.x - 1)) {
 						//change location
 						location.x -= 1;
-						player->updateLocation(location.y, location.x);
+						player->updateLocation(location.y, location.x, 0, yOffset);
 					}
 
 					//reset move request
@@ -149,7 +154,7 @@ public:
 					if (mGrid->checkWalkable(location.y - 1, location.x)) {
 						//change location
 						location.y -= 1;
-						player->updateLocation(location.y, location.x);
+						player->updateLocation(location.y, location.x, 0, yOffset);
 					}
 
 					//reset move request
@@ -162,7 +167,7 @@ public:
 					if (mGrid->checkWalkable(location.y, location.x + 1)) {
 						//change location
 						location.x += 1;
-						player->updateLocation(location.y, location.x);
+						player->updateLocation(location.y, location.x, 0, yOffset);
 					}
 					
 					//reset move request
@@ -193,7 +198,7 @@ public:
 			//reset player location
 			location.x = gridSize.x / 2;
 			location.y = 0;
-			player->updateLocation(location.y, location.x);
+			player->updateLocation(location.y, location.x,0,yOffset);
 
 			scroll = 0;
 		}

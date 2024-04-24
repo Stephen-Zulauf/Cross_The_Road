@@ -31,6 +31,11 @@ public:
 
 	}
 
+	//update sprites etc
+	void updateXY(float xOffset, float yOffset) override {
+		this->setPosition(this->row, this->col, 0, yOffset+1.2);
+	}
+
 	//draw to window
 	void draw(sf::RenderWindow* nWindow) override {
 		nWindow->draw(Data);

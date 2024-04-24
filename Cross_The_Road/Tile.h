@@ -36,7 +36,8 @@ public:
 		this->height = nH;
 
 		//t_width * i, t_height * ((rows - 1) - rowNum)
-		this->Data.setPosition(width*col, height * ((totalRows-1)-row));
+		//this->Data.setPosition(width*col, height * ((totalRows-10)-row));
+		this->Data.setPosition(width * (nCol - 0), height * ((totalRows - 1) - (nRow + 2) - 0));
 		this->Data.setSize(sf::Vector2f(width, height));
 		this->walkable = isWalkable;
 		this->deadly = isDeadly;
@@ -48,13 +49,14 @@ public:
 	virtual void draw(sf::RenderWindow* nWindow) = 0;
 
 	//update sprites etc
-	virtual void update(float offset) {
+	virtual void updateXY(float xOffset, float yOffset) {
 		
 	}
+	
 
 	//setters
 	void setPosition(int nRow, int nCol, float xOff, float yOff) {
-		this->Data.setPosition(width * (nCol - xOff), height * ((totalRows - 1) - nRow - yOff));
+		this->Data.setPosition(width * (nCol - xOff), height * ((totalRows - 1) - (nRow+2) - yOff));
 	}
 	void setTexture(sf::Texture* nTexture) {
 		this->Data.setTexture(nTexture);

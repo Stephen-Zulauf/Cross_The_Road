@@ -79,18 +79,20 @@ public:
 		}
 	}
 
-	void updateTiles(float offset) {
+	void updateTiles(float xOffset, float yOffset) {
 		for (int i = 0; i < Tiles.size(); i++) {
-			Tiles[i]->updateTiles(offset);
+			Tiles[i]->updateTiles(xOffset, yOffset);
 		}
 	}
 
-	void update() {
+	void update(float xOffset, float yOffset) {
 
 		//update movers
 		if (type == 2) {
 			genMovers();
+
 		}
+		updateTiles(0, yOffset);
 
 	}
 
