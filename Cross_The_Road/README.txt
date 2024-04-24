@@ -12,6 +12,8 @@ Authors:
 Github:
 	https://github.com/Stephen-Zulauf/Cross_The_Road
 	https://github.com/Stephen-Zulauf/Cross_The_Road.git
+	ReleaseV1.0 branch is stable-ish
+	main is still being updated
 Description:
 	Randomly generated Tile maps,
 	Endless scrolling
@@ -24,6 +26,11 @@ Assets:
 	Sprout Lands (free version)
 	by Cup Nooble
 	https://cupnooble.itch.io/sprout-lands-asset-pack
+	https://cupnooble.itch.io/sprout-lands-ui-pack
+Music:
+	Dream Sweet in Sea Major/Miracle Musical [Music Box]
+	Cover from 'Hawaii part 2' by R3 Music Box
+	https://youtu.be/oYy18hwGor4?si=AMfm1n6_BrX5ZMhg
 Controls:
 	W:Move up
 	A:Move left
