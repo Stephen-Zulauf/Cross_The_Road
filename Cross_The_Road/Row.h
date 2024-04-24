@@ -79,18 +79,20 @@ public:
 		}
 	}
 
-	void updateTiles(float offset) {
+	void updateTiles(float xOffset, float yOffset) {
 		for (int i = 0; i < Tiles.size(); i++) {
-			Tiles[i]->updateTiles(offset);
+			Tiles[i]->updateTiles(xOffset, yOffset);
 		}
 	}
 
-	void update() {
+	void update(float xOffset, float yOffset) {
 
 		//update movers
 		if (type == 2) {
 			genMovers();
+
 		}
+		updateTiles(0, yOffset);
 
 	}
 
@@ -281,50 +283,55 @@ public:
 		if (type == 1) {
 
 			for (int i = 0; i < cols; i++) {
-				int type = rand() % 20;
 
-				Tile* temp;
+				if (i != cols / 2) {
+					int type = rand() % 20;
 
-				switch (type) {
-				case 0:
-					temp = new RedMush(rowNum, i, rows, t_width, t_height, atlas);
-					Tiles[i]->addTile(temp);
-					break;
-				case 1:
-					temp = new SmStump(rowNum, i, rows, t_width, t_height, atlas);
-					Tiles[i]->addTile(temp);
-					break;
-				case 2:
-					temp = new LgStump(rowNum, i, rows, t_width, t_height, atlas);
-					Tiles[i]->addTile(temp);
-					break;
-				case 3:
-					temp = new Sunflower(rowNum, i, rows, t_width, t_height, atlas);
-					Tiles[i]->addTile(temp);
-					break;
-				case 4:
-					temp = new Bush(rowNum, i, rows, t_width, t_height, atlas);
-					Tiles[i]->addTile(temp);
-					break;
-				case 5:
+					Tile* temp;
 
-					if (i + 1 < cols) {
-						//make left and right tree
-						temp = new TreeL(rowNum, i, rows, t_width, t_height, atlas);
+					switch (type) {
+					case 0:
+						temp = new RedMush(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
-
-						i++;
-
-						temp = new TreeR(rowNum, i, rows, t_width, t_height, atlas);
+						break;
+					case 1:
+						temp = new SmStump(rowNum, i, rows, t_width, t_height, atlas);
 						Tiles[i]->addTile(temp);
+						break;
+					case 2:
+						temp = new LgStump(rowNum, i, rows, t_width, t_height, atlas);
+						Tiles[i]->addTile(temp);
+						break;
+					case 3:
+						temp = new Sunflower(rowNum, i, rows, t_width, t_height, atlas);
+						Tiles[i]->addTile(temp);
+						break;
+					case 4:
+						temp = new Bush(rowNum, i, rows, t_width, t_height, atlas);
+						Tiles[i]->addTile(temp);
+						break;
+					case 5:
+
+						if (i + 1 < cols) {
+							//make left and right tree
+							temp = new TreeL(rowNum, i, rows, t_width, t_height, atlas);
+							Tiles[i]->addTile(temp);
+
+							i++;
+
+							temp = new TreeR(rowNum, i, rows, t_width, t_height, atlas);
+							Tiles[i]->addTile(temp);
+						}
+
+						break;
+
+					default:
+
+						break;
 					}
 
-					break;
-
-				default:
-
-					break;
 				}
+				
 				//std::cout << "creating obstacles" << std::endl;
 
 			}

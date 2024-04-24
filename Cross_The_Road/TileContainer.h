@@ -46,9 +46,9 @@ public:
 		}
 	}
 
-	void updateTiles(float offset) {
+	void updateTiles(float xOffset, float yOffset) {
 		for (int i = 0; i < Tiles.size(); i++) {
-			Tiles[i]->update(offset);
+			Tiles[i]->updateXY(xOffset,yOffset);
 		}
 	}
 

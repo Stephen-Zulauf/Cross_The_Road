@@ -37,7 +37,7 @@ public:
 		//this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));
 
 		//update location with scale offset
-		updateLocation(row, col);
+		updateLocation(row, col,0,0);
 
 		this->atlas = atlas;
 
@@ -63,12 +63,12 @@ public:
 	}
 
 	//this is needed to compensate for the scaling on the sprite
-	void updateLocation(int row, int col) {
+	void updateLocation(int row, int col, float xOffset, float yOffset) {
 
 		//this->setPosition(width * (col - .5), height * ((totalRows-1)-row - .8));
 		//(old offset reference)
 		//set postion
-		this->setPosition(row,col,.5,.8);
+		this->setPosition(row,col, xOffset + .5, yOffset + .8);
 		
 	}
 

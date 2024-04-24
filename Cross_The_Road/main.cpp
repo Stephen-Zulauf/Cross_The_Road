@@ -21,7 +21,7 @@ int main()
     //rows, columns, width, height, window, sprites
     Grid mGrid(10, 15, w_width, w_height, &w_Main, &atlas);
 
-    /*create player logic grid*/
+    /*create player logic*/
     PlayerLogic logic(&mGrid, &atlas, &w_Main);
 
     /*keep track of elapsed time*/
@@ -34,6 +34,14 @@ int main()
 
     /*create timer*/
     Timers timer(&clock, &mGrid, &logic, &mMenu);
+
+    /*BG music*/
+    sf::Music music;
+    if (!music.openFromFile("bgmusic.mp3")) {
+        std::cout << "ERR MAIN: failed to open music file" << std::endl;
+    }
+    music.setLoop(true);
+    music.play(); //comment out to disable music
 
     /*main event loop*/
     while (w_Main.isOpen())

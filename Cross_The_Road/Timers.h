@@ -32,6 +32,7 @@ private:
 	bool dead = false;
 	bool updateEvent = false;
 	bool rowRemoveEvent = false;
+	bool rowAnimation = false;
 
 	//score
 	int score = 0;
@@ -51,9 +52,9 @@ public:
 		//std::cout << ellapsed << std::endl;
 
 		xOffsetIncrement =  (1/(grid->getTileSize().x))-.002;
-		yOffsetIncrement =  (1/(grid->getTileSize().y));
+		yOffsetIncrement =  ((1.0/6 / (grid->getTileSize().y)));
 		xOffset += xOffsetIncrement;
-		yOffset += yOffsetIncrement;
+		yOffset -= yOffsetIncrement;
 
 		//update timers
 		if (ellapsed >= target) {
@@ -70,18 +71,16 @@ public:
 			updateEvent = true;
 			update = 0;
 			xOffset = 0;
-			yOffset = 0;
+			
 		}
 
 		//set row removal
-		if (rowRemove >= 5) {
-			rowRemoveEvent = true;
-			rowRemove = 0;
-		}
+		if (rowRemove >= 6) {
+			yOffset = 0;
 
 		//update logic, grid, menu
-		grid->update(updateEvent, rowRemoveEvent, xOffset);
-		logic->loop(updateEvent, rowRemoveEvent, &dead, xOffset);
+		grid->update(updateEvent, rowRemoveEvent, xOffset, yOffset);
+		logic->loop(updateEvent, rowRemoveEvent, &dead, xOffset, yOffset);
 
 		//reset timers
 		updateEvent = false;

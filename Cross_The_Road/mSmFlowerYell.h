@@ -24,9 +24,9 @@ public:
 
 	}
 
-	//update to move sprite over
-	void update(float offset) override {
-		this->setPosition(this->row, this->col, offset, 0);
+	//update sprites etc
+	void updateXY(float xOffset, float yOffset) override {
+		this->setPosition(this->row, this->col, xOffset, yOffset);
 	}
 
 

@@ -32,6 +32,9 @@ private:
 	//keep track of last row type created
 	int last = 1;
 
+	//y offset for drawing
+	float yOffset = 0.0;
+
 public:
 	//constructor
 	Grid(int nRows, int nColumns, float w_width, float w_height, sf::RenderWindow* nWindow, Atlas* nAtlas) 
@@ -50,6 +53,9 @@ public:
 
 		//load tile sets
 		atlas = nAtlas;
+
+		//create row buffer
+		rows += 2;
 
 		initGrid();
 
@@ -129,17 +135,11 @@ public:
 			}
 
 		}
-
+		
 	}
 
 	//draw each tile in Tiles vector
 	void drawGrid() {
-
-		//draw rows
-		/*for (int i = 0; i < Rows.size(); i++) {
-
-			Rows[i]->draw(window);
-		}*/
 
 		for (int i = Rows.size()-1; i >= 0; i--) {
 
@@ -155,8 +155,9 @@ public:
 	}
 
 	//update moving tiles etc.
-	void update(bool isUpdate, bool removal, float offset) {
+	void update(bool isUpdate, bool removal, float xOffset, float yOffset) {
 
+		this->yOffset = yOffset;
 
 		//if player died reset grid
 		if (this->dead) {
@@ -172,13 +173,11 @@ public:
 			scroll = 0;
 		}
 
-		//update tile animations
-		for (int i = 0; i < Rows.size(); i++) {
-			Rows[i]->updateTiles(offset);
-		}
+		
 
 		//remove row from main clock
 		if (removal) {
+
 			//select random row type
 			int type = 0 + (int)(rand() / (double)(RAND_MAX + 1) * (10 - 0 + 1));
 
@@ -186,27 +185,34 @@ public:
 			// create a 2 row (mover)
 			if (last == 0) {
 				last = 2;
-				Rows.push_back(new Row(columns, 2, t_width, t_height, rows, rows, atlas));
+				Rows.push_back(new Row(columns, 2, t_width, t_height, Rows.size() + 1, Rows.size()+1, atlas));
 			}
 			//create a 0 row (water)
 			else if (type < 5) {
 				last = 0;
-				Rows.push_back(new Row(columns, 0, t_width, t_height, rows, rows, atlas));
+				Rows.push_back(new Row(columns, 0, t_width, t_height, Rows.size() + 1, Rows.size()+1, atlas));
 			}
 			//create a 1 type row (land)
 			else {
 				last = 1;
-				Rows.push_back(new Row(columns, 1, t_width, t_height, rows, rows, atlas));
+				Rows.push_back(new Row(columns, 1, t_width, t_height, Rows.size() + 1, Rows.size()+1, atlas));
 			}
+			
 
-
+			//TODO
 			for (int i = 0; i < Rows.size(); i++) {
 				Rows[i]->decreaseRow();
+				
 			}
 
 			delete Rows.front();
 			Rows.erase(Rows.begin());
 
+		}
+
+		//update tile animations
+		for (int i = 0; i < Rows.size(); i++) {
+			Rows[i]->updateTiles(xOffset, yOffset);
 		}
 
 		//if update from main clock
@@ -215,7 +221,7 @@ public:
 			//update rows
 			for (int i = 0; i < Rows.size(); i++) {
 
-				Rows[i]->update();
+				Rows[i]->update(xOffset,yOffset);
 
 			}
 		}

@@ -8,5 +8,6 @@
 #include <vector>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
