@@ -77,6 +77,7 @@ public:
 		//set row removal
 		if (rowRemove >= 6) {
 			yOffset = 0;
+		}
 
 		//update logic, grid, menu
 		grid->update(updateEvent, rowRemoveEvent, xOffset, yOffset);
