@@ -52,7 +52,7 @@ public:
 		//std::cout << ellapsed << std::endl;
 
 		xOffsetIncrement =  (1/(grid->getTileSize().x))-.002;
-		yOffsetIncrement =  ((1.0/7 / (grid->getTileSize().y)));
+		yOffsetIncrement =  ((1.0/6 / (grid->getTileSize().y)));
 		xOffset += xOffsetIncrement;
 		yOffset -= yOffsetIncrement;
 
