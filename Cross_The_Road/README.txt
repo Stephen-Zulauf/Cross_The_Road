@@ -12,7 +12,7 @@ Authors:
 Github:
 	https://github.com/Stephen-Zulauf/Cross_The_Road
 	https://github.com/Stephen-Zulauf/Cross_The_Road.git
-	ReleaseV1.0 branch is stable-ish
+	ReleaseV1.1 branch is stable-ish
 	main is still being updated
 Description:
 	Randomly generated Tile maps,
